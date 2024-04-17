@@ -1,4 +1,7 @@
 function stringCompression(str) {
+    if (typeof str !== 'string' || str.length === 0) {
+        throw new Error('Invalid input.');
+    }
     var compressedStr = '';
     var letterCount = 1;
 
@@ -13,6 +16,4 @@ function stringCompression(str) {
     return (compressedStr.length < str.length) ? compressedStr : str;
 }
 
-console.log(`Compressed String Shorter. 'aaabbbcccddd', should return 'a3b3c3d3'. Result: ${stringCompression('aaabbbcccddd')}`);
-console.log(`Compressed String Longer. 'abcd', should return 'abcd'. Result: ${stringCompression('abcd')}`);
-console.log(`Compressed and Original Same Length. 'aabbcc', should return 'aabbcc'. Result: ${stringCompression('aabbcc')}`);
+module.exports = stringCompression;
