@@ -1,4 +1,7 @@
 function palindromePermutation(str) {
+    if (typeof str !== 'string' || str.length === 0) {
+        throw new Error('Invalid input.');
+    }
     var cleanedInput = str.replace(/[^a-zA-Z0-9]/g, '');
     if (cleanedInput.length === 1) {
         return true;
@@ -34,9 +37,4 @@ function palindromePermutation(str) {
     }
 }
 
-console.log(`Odd Positive Case: 'amamd', should equal true. Result: ${palindromePermutation('amamd')}`);
-console.log(`Even Positive Case: 'onon', should equal true. Result: ${palindromePermutation('onon')}`);
-console.log(`Odd Negative Case: 'abc', should equal false. Result: ${palindromePermutation('abc')}`);
-console.log(`Even Negative Case: 'abcd', should equal false. Result: ${palindromePermutation('abcd')}`);
-console.log(`One Character Case: 'a', should equal true. Result: ${palindromePermutation('a')}`);
-console.log(`Odd More Than 3 Letter Count: 'anccc', should equal false. Result: ${palindromePermutation('abcd')}`);
+module.exports = palindromePermutation;
