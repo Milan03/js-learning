@@ -9,7 +9,6 @@ function rotateMatrix(matrix) {
     }
     for (let i = 0; i < matrix.length; ++i) {
         for (let x = i + 1; x < matrix[i].length; ++x) {
-            console.log(`matrix.length = ${matrix.length}`);
             let ixTemp = matrix[i][x];
             matrix[i][x] = matrix[x][i];
             matrix[x][i] = ixTemp;
