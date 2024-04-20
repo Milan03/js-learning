@@ -19,13 +19,11 @@ var recoverSecret = function (triplets) {
     var Q = [];
     var predecessorMap = new Map();
     for (const [key, value] of letterMap.entries()) {
-        //console.log(key, value);
         if (!predecessorMap.get(key)) {
             predecessorMap.set(key, new Set());
         }
     }
     for (const [key, value] of letterMap.entries()) {
-        //console.log(key, value);
         value.forEach((successor) => {
             let predecessors = predecessorMap.get(successor);
             predecessors.add(key);
@@ -53,9 +51,7 @@ var recoverSecret = function (triplets) {
         });
 
     }
-    console.log(`letterMap: \n`);
-    console.log(letterMap);;
-    console.log(`predMap: \n`);
-    console.log(predecessorMap);
     return returnStr;
 }
+
+module.exports = recoverSecret;
