@@ -1,28 +1,25 @@
 const checkPermutation = require('./check-permutation.js');
 
 describe('Check Permutation Tests', () => {
-    test('Is permutation, should return true', () => {
+    it('should return true when is permutation', () => {
         expect(checkPermutation('abcd', 'cbda')).toBe(true);
     });
 
-    test('Same word, should return true', () => {
+    test('should return true when it is the same word', () => {
         expect(checkPermutation('abcd', 'abcd')).toBe(true);
     });
 
-    test('Is not permutation, should return false', () => {
+    test('should return false when it is not permutation', () => {
         expect(checkPermutation('abcd', 'abce')).toBe(false);
     });
 
-    test('Difference length strings, should return true', () => {
+    test('it should return false when different length strings are provided', () => {
         expect(checkPermutation('abcd', 'abcde')).toBe(false);
     });
 
-    test('Invalid input, input not strings, should throw error', () => {
+    test('should throw an error on invalid input', () => {
         expect(() => { checkPermutation(1, 'abcd')}).toThrow('Invalid input.');
         expect(() => { checkPermutation('abcd', 1)}).toThrow('Invalid input.');
-    });
-
-    test('Invalid input, string lengths of 0, should throw error', () => {
         expect(() => { checkPermutation('', 'abcd')}).toThrow('Invalid input.');
         expect(() => { checkPermutation('abcd', '')}).toThrow('Invalid input.');
     });

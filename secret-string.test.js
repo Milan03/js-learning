@@ -1,7 +1,7 @@
 const recoverSecret = require('./secret-string.js');
 
 describe('Secret string tests', () => {
-    test('It should return the secret string', () => {
+    it('should return the secret string', () => {
         let secret = "whatisup"
         let triplets = [
             ['t', 'u', 'p'],
@@ -15,7 +15,7 @@ describe('Secret string tests', () => {
         expect(recoverSecret(triplets)).toBe(secret);
     })
 
-    test('It should handle single triplet', () => {
+    it('should handle single triplet', () => {
         let secret = "bat";
         let triplets = [
             ['b', 'a', 't']
@@ -23,7 +23,7 @@ describe('Secret string tests', () => {
         expect(recoverSecret(triplets)).toBe(secret);
     });
 
-    test('It should handle triplets with characters in non-sequential order', () => {
+    it('should handle triplets with characters in non-sequential order', () => {
         let secret = "abcdef";
         let triplets = [
             ['a', 'b', 'd'],

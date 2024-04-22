@@ -1,7 +1,7 @@
 const zeroMatrix = require('./zero-matrix.js');
 
 describe('Zero Matrix Test', () => {
-    test('it should zero out a 3x4 matrix', () => {
+    it('should zero out a 3x4 matrix', () => {
         var testMatrix = [
             [1, 2, 0],
             [4, 5, 6],
@@ -17,7 +17,7 @@ describe('Zero Matrix Test', () => {
         expect(zeroMatrix(testMatrix)).toEqual(expect.arrayContaining(zeroedMatrix));
     });
 
-    test('it should zero out a 2x1 matrix', () => {
+    it('should zero out a 2x1 matrix', () => {
         var testMatrix = [
             [1],
             [0]
@@ -29,21 +29,21 @@ describe('Zero Matrix Test', () => {
         expect(zeroMatrix(testMatrix)).toEqual(expect.arrayContaining(zeroedMatrix));
     });
 
-    test('it should work with a 1x1 matrix with a value of 0', () => {
+    it('should work with a 1x1 matrix with a value of 0', () => {
         var testMatrix = [
             [0]
         ];
         expect(zeroMatrix(testMatrix)).toEqual(expect.arrayContaining(testMatrix));
     });
 
-    test('it should work with a 1x1 matrix with a value of 1', () => {
+    it('should work with a 1x1 matrix with a value of 1', () => {
         var testMatrix = [
             [1]
         ];
         expect(zeroMatrix(testMatrix)).toEqual(expect.arrayContaining(testMatrix));
     });
 
-    test('it should throw an error if a matrix of 0 length is provided', () => {
+    it('should throw an error if a matrix of 0 length is provided', () => {
         var testMatrix = [];
         expect(() => { zeroMatrix(testMatrix) }).toThrow('Invalid input.');
     });

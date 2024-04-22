@@ -1,23 +1,23 @@
 const stringRotation = require('./string-rotation'); 
 
 describe('String Rotation Tests', () => {
-    test('is rotation', () => {
+    it('should return true when it is an actual rotation', () => {
         expect(stringRotation('larratt', 'arrattl')).toBe(true);
     });
 
-    test('is rotation with more than one letter over', () => {
+    it('should return true when it is an actual rotation and more than one char over', () => {
         expect(stringRotation('larratt', 'attlarr')).toBe(true);
     });
 
-    test('not rotation and same length', () => {
+    it('should return false when lengths are equal but not rotation', () => {
         expect(stringRotation('larratt', 'taalarr')).toBe(false);
     });
 
-    test('not rotation due to different length', () => {
+    it('should return false when strings are not the same length', () => {
         expect(stringRotation('larratt', 'larrattt')).toBe(false);
     });
 
-    test('not rotation due to same word', () => {
+    it('should return false if same word is detected', () => {
         expect(stringRotation('larratt', 'larratt')).toBe(false);
     });
 });

@@ -1,27 +1,27 @@
 const isUnique = require('./is-unique.js');
 
 describe('Is Unique Tests', () => {
-    test('Is unique, should return true', () => {
+    it('should return true when unique', () => {
         expect(isUnique('abc')).toBe(true);
     });
 
-    test('Is not unique, should return false', () => {
+    it('should return false when not unique', () => {
         expect(isUnique('aabbcc')).toBe(false);
     });
 
-    test('One character, should return true', () => {
+    it('should return true if one character is provided', () => {
         expect(isUnique('a')).toBe(true);
     });
 
-    test('Is unique with space, should return true', () => {
+    it('should return true when unique with space', () => {
         expect(isUnique('abc d')).toBe(true);
     });
 
-    test('Is not unique with space, should return false', () => {
+    it('should return false when Is not unique with space', () => {
         expect(isUnique('abc dd')).toBe(false);
     });
 
-    test('Invalid input, should throw error', () => {
+    it('should throw an error on invalid input', () => {
         expect(() => { isUnique(1) }).toThrow('Invalid input.');
         expect(() => { isUnique('') }).toThrow('Invalid input.');
     });

@@ -1,43 +1,43 @@
 const oneAway = require('./one-away.js');
 
 describe('One Away Tests', () => {
-    test('One letter removed, should return true', () => {
+    it('should return true if one letter is removed', () => {
         expect(oneAway('pale', 'ple')).toBe(true);
     });
 
-    test('One letter replaced, should return true', () => {
+    it('should return true when one letter is replaced', () => {
         expect(oneAway('pale', 'bale')).toBe(true);
     });
 
-    test('Two letter replaced, should return false', () => {
+    it('should return false if more than one letter is replaced', () => {
         expect(oneAway('pale', 'bake')).toBe(false);
     });
 
-    test('One letter replaced one removed, should return false', () => {
+    it('should return false if one letter is replaced and one removed', () => {
         expect(oneAway('pale', 'pke')).toBe(false);
     });
 
-    test('One letter replaced one added, should return false', () => {
+    it('should return false if one letter is replaced and one is added', () => {
         expect(oneAway('pale', 'sales')).toBe(false);
     });
 
-    test('Same word, should return false', () => {
+    it('should return false on the same word', () => {
         expect(oneAway('pale', 'pale')).toBe(false);
     });
 
-    test('Length difference greater than 1, should return false', () => {
+    it('should return false when length difference greater than 1', () => {
         expect(oneAway('pale', 'paless')).toBe(false);
     });
 
-    test('Length difference less than -1, should return false', () => {
+    it('should return false when length difference less than -1', () => {
         expect(oneAway('p', 'pale')).toBe(false);
     });
 
-    test('First parameter not of type string should throw error', () => {
-        expect(() => { oneAway(1, 'test') }).toThrow('Invalid input.');
+    it('should throw error if first param is not string', () => {
+        expect(() => { oneAway(1, 'it') }).toThrow('Invalid input.');
     });
 
-    test('Second parameter not of type string should throw error', () => {
-        expect(() => { oneAway('test', 1) }).toThrow('Invalid input.');
+    it('should throw error if second param is not string', () => {
+        expect(() => { oneAway('it', 1) }).toThrow('Invalid input.');
     });
 });

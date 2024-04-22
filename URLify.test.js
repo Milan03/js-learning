@@ -1,19 +1,19 @@
 const URLify = require('./URLify');
 
 describe('URLify Tests', () => {
-    test('Trailing spaces case', () => {
+    it('should handle trailing spaces correctly', () => {
         expect(URLify('Mr John Smith    ')).toBe('Mr%20John%20Smith');
     });
 
-    test('More than one space in between case', () => {
+    it('should handle more than one space in between the words', () => {
         expect(URLify('Mr  John    Smith')).toBe('Mr%20John%20Smith');
     });
 
-    test('Leading spaces case', () => {
+    it('should handle leading spaces', () => {
         expect(URLify('  Mr     John    Smith')).toBe('Mr%20John%20Smith');
     });
 
-    test('Invalid input case, should throw error', () => {
+    it('should throw an error on invalid input', () => {
         expect(() => { URLify(1) }).toThrow('Invalid input.');
     });
 });

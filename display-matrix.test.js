@@ -8,7 +8,7 @@ describe('Display Matrix Tests', () => {
         [12, 13, 14, 15]
     ];
 
-    test('it should display matrix correctly', () => {
+    it('should display matrix correctly', () => {
         expect(displayMatrix(originalMatrix)).toBe(
         '1, 2, 3, 4\n' +
         '4, 5, 6, 7\n' +

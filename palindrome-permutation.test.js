@@ -1,31 +1,31 @@
 const palindromePermutation = require('./palindrome-permutation.js');
 
 describe('Palimdrome Permutation Tests', () => {
-    test('Odd positive case, should return true', () => {
+    it('should return true when it is an odd positive case', () => {
         expect(palindromePermutation('amamd')).toBe(true);
     });
 
-    test('Even positive case, should return true', () => {
+    it('should return true when it is an even positive case', () => {
         expect(palindromePermutation('onon')).toBe(true);
     });
 
-    test('Odd negative case, should return false', () => {
+    it('should return false when it is an odd negative case', () => {
         expect(palindromePermutation('abc')).toBe(false);
     });
 
-    test('Even negative case, should return true', () => {
+    it('should return false when it is an even negative case', () => {
         expect(palindromePermutation('abcd')).toBe(false);
     });
 
-    test('One character case, should return true', () => {
+    it('should return true when it is one character', () => {
         expect(palindromePermutation('a')).toBe(true);
     });
 
-    test('Odd more than 3 letter case, should return true', () => {
+    it('should return true when it is an odd more than 3 letter case', () => {
         expect(palindromePermutation('anccc')).toBe(false);
     });
 
-    test('Invalid input case, should throw error', () => {
+    it('should throw an error on invalid input', () => {
         expect(() => { palindromePermutation(1) }).toThrow('Invalid input.');
     });
 });
