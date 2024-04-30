@@ -12,7 +12,7 @@ class LinkedList {
 
         if (this.amtToCreate > 0) {
             for (let i = 0; i < this.amtToCreate; ++i) {
-                this.add(i);
+                this.addToEnd(i);
             }
         }
     }
@@ -30,11 +30,14 @@ class LinkedList {
                 ++counter;
                 current = current.next;
             }
+            if (nodeIdx === counter) {
+                return current.data;
+            }
             throw new Error('Out of bounds.');
         }
     }
 
-    add(data) {
+    addToEnd(data) {
         const newNode = new ListNode(data);
         if (!this.head) {
             this.head = newNode;
@@ -142,7 +145,3 @@ class LinkedList {
 }
 
 module.exports = LinkedList;
-// Example usage
-//const list = new LinkedList(10);
-//console.log(`got value: ${list.getNodeData(3)}`);
-

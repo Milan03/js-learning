@@ -22,6 +22,11 @@ describe('Linked List Tests', () => {
         expect(linkedList.getNodeData(3)).toBe(3);
     });
 
+    it('should get the value of the node at the last index possible', () => {
+        linkedList = new LinkedList(10);
+        expect(linkedList.getNodeData(9)).toBe(9);
+    });
+
     it('should throw an error if out of bounds node is trying to be reached', () => {
         linkedList = new LinkedList(10);
         expect(() => { linkedList.getNodeData(11) }).toThrow('Out of bounds.');
@@ -32,9 +37,29 @@ describe('Linked List Tests', () => {
         expect(linkedList.size()).toBe(2);
     });
 
-    it('should add one', () => {
-        linkedList.add(1);
-        expect(linkedList.print()).toContain(1);
+    it('should add one to the end of the linked list if no elements present', () => {
+        linkedList.addToEnd(1);
+        expect(linkedList.getNodeData(0)).toBe(1);
+        expect(linkedList.size()).toBe(1);
+    });
+
+    it('should add one to the end of the linked list if elements are present', () => {
+        linkedList = new LinkedList(5);
+        linkedList.addToEnd(3);
+        expect(linkedList.getNodeData(5)).toBe(3);
+        expect(linkedList.size()).toBe(6);
+    });
+
+    it('should add value to beginning when more than 0 elements are present', () => {
+        linkedList = new LinkedList(5);
+        linkedList.addToBeginning(3);
+        expect(linkedList.getNodeData(0)).toBe(3);
+    });
+
+    it('should add value to beginning when 0 elements are present', () => {
+        linkedList = new LinkedList();
+        linkedList.addToBeginning(3);
+        expect(linkedList.getNodeData(0)).toBe(3);
     });
 
     it('should removed the named element from the linked list', () => {
@@ -49,20 +74,20 @@ describe('Linked List Tests', () => {
     });
 
     it('should remove duplicates', () => {
-        linkedList.add(1);
-        linkedList.add(2);
-        linkedList.add(2);
-        linkedList.add(3);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(2);
+        linkedList.addToEnd(2);
+        linkedList.addToEnd(3);
         linkedList.removeDups();
         expect(linkedList.print()).toEqual(expect.arrayContaining([1, 2, 3]));
         expect(linkedList.size()).toBe(3);
     });
 
     it('should remove duplicates when they are at the start', () => {
-        linkedList.add(1);
-        linkedList.add(1);
-        linkedList.add(2);
-        linkedList.add(3);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(2);
+        linkedList.addToEnd(3);
         linkedList.removeDups();
         expect(linkedList.print()).toEqual(expect.arrayContaining([1, 2, 3]));
         expect(linkedList.size()).toBe(3);
