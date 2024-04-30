@@ -30,6 +30,7 @@ class LinkedList {
                 ++counter;
                 current = current.next;
             }
+            throw new Error('Out of bounds.');
         }
     }
 

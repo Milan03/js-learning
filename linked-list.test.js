@@ -7,11 +7,6 @@ describe('Linked List Tests', () => {
         linkedList = new LinkedList();
     });
 
-    it('should add one', () => {
-        linkedList.add(1);
-        expect(linkedList.print()).toContain(1);
-    });
-
     it('should add elements to the linked list when constructor is supplier a parameter', () => {
         linkedList = new LinkedList(10);
         expect(linkedList.size()).toBe(10);
@@ -27,9 +22,19 @@ describe('Linked List Tests', () => {
         expect(linkedList.getNodeData(3)).toBe(3);
     });
 
+    it('should throw an error if out of bounds node is trying to be reached', () => {
+        linkedList = new LinkedList(10);
+        expect(() => { linkedList.getNodeData(11) }).toThrow('Out of bounds.');
+    });
+
     it('should calculate the right size of the linked list', () => {
         linkedList = new LinkedList(2);
         expect(linkedList.size()).toBe(2);
+    });
+
+    it('should add one', () => {
+        linkedList.add(1);
+        expect(linkedList.print()).toContain(1);
     });
 
     it('should removed the named element from the linked list', () => {
