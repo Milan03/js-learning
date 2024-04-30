@@ -17,6 +17,16 @@ describe('Linked List Tests', () => {
         expect(linkedList.size()).toBe(10);
     });
 
+    it('should get the value of the node at index 0', () => {
+        linkedList = new LinkedList(10);
+        expect(linkedList.getNodeData(0)).toBe(0);
+    });
+
+    it('should get the value of the node at index greater than 0', () => {
+        linkedList = new LinkedList(10);
+        expect(linkedList.getNodeData(3)).toBe(3);
+    });
+
     it('should calculate the right size of the linked list', () => {
         linkedList = new LinkedList(2);
         expect(linkedList.size()).toBe(2);

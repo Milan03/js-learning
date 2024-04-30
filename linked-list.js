@@ -17,6 +17,22 @@ class LinkedList {
         }
     }
 
+    getNodeData(nodeIdx) {
+        if (nodeIdx === 0) {
+            return this.head.data;
+        } else {
+            let current = this.head;
+            let counter = 0;
+            while(current.next) {
+                if (nodeIdx === counter) {
+                    return current.data;
+                }
+                ++counter;
+                current = current.next;
+            }
+        }
+    }
+
     add(data) {
         const newNode = new ListNode(data);
         if (!this.head) {
@@ -27,6 +43,19 @@ class LinkedList {
                 current = current.next;
             }
             current.next = newNode;
+        }
+    }
+
+    addToBeginning(data) {
+        const newNode = new ListNode(data);
+        if (!this.head) {
+            this.head = newNode;
+        } else {
+            let current = this.head;
+            while (current.next) {
+                current = current.next;
+            }
+            this.head = newNode;
         }
     }
 
@@ -113,19 +142,6 @@ class LinkedList {
 
 module.exports = LinkedList;
 // Example usage
-/*const list = new LinkedList();
-list.add(1);
-list.add(2);
-list.add(3);
-list.add(4);
-list.add(5);
-list.add(6);
-list.add(7);
-list.add(8);
-console.log("Before removal:");
-list.print();
+//const list = new LinkedList(10);
+//console.log(`got value: ${list.getNodeData(3)}`);
 
-let nthLast = list.nthFromLast(0);
-console.log('nth from last: ' + nthLast); // Check if this outputs "8 ->"
-
-*/
