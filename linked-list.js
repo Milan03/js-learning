@@ -142,6 +142,29 @@ class LinkedList {
             behind = behind.next;
         }
     }
+
+    deleteMiddleNode(node) {
+        if (this.head != null && (this.head.data === node.data && this.head.next.data === node.next.data)) {
+            throw new Error("Out of bounds.")
+        }
+        let current = this.head;
+        let previous = null;
+        while(current) {
+            if (current.next === null) {
+                throw new Error("Out of bounds.")
+            }
+            if (current.data === node.data && current.next.data === node.next.data) {
+                if (previous) {
+                    previous.next = current.next;
+                } else {
+                    this.head = current.next;
+                }
+                return true; // Data found and removed
+            }
+            previous = current;
+            current = current.next
+        }
+    }
 }
 
-module.exports = LinkedList;
+module.exports = { LinkedList, ListNode };

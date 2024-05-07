@@ -1,4 +1,4 @@
-const LinkedList = require('./linked-list'); 
+const { LinkedList, ListNode } = require('./linked-list');
 
 describe('Linked List Tests', () => {
     let linkedList;
@@ -106,5 +106,31 @@ describe('Linked List Tests', () => {
     it('should throw error when nth from last is out of bounds', () => {
         linkedList = new LinkedList(3);
         expect(() => { linkedList.nthFromLast(4) }).toThrow('n out of bounds');
+    });
+
+    it('should delete a middle node', () => {
+        linkedList = new LinkedList(5);
+        let nodeToTest = new ListNode();
+        nodeToTest.data = 2;
+        nodeToTest.next = new ListNode();
+        nodeToTest.next.data = 3;
+        expect(linkedList.deleteMiddleNode(nodeToTest)).toBe(true);
+    });
+
+    it('should not delete middle node when node entered is head', () => {
+        linkedList = new LinkedList(5);
+        let nodeToTest = new ListNode();
+        nodeToTest.data = 0;
+        nodeToTest.next = new ListNode();
+        nodeToTest.next.data = 1;
+        expect(() => { linkedList.deleteMiddleNode(nodeToTest)} ).toThrow("Out of bounds.");
+    });
+
+    it('should not delete middle node when node entered is last', () => {
+        linkedList = new LinkedList(5);
+        let nodeToTest = new ListNode();
+        nodeToTest.data = 5;
+        nodeToTest.next = null;
+        expect(() => { linkedList.deleteMiddleNode(nodeToTest)} ).toThrow("Out of bounds.");
     });
 });
