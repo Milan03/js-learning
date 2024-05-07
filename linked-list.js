@@ -17,6 +17,29 @@ class LinkedList {
         }
     }
 
+    print() {
+        let str = "";
+        let returnArray = new Array();
+        let current = this.head;
+        while (current) {
+            str += current.data + ' -> ';
+            returnArray.push(current.data);
+            current = current.next;
+        }
+        //console.log(`${str.slice(0,-4)}`);
+        return returnArray;
+    }
+
+    size() {
+        let current = this.head;
+        let count = 0;
+        while (current) {
+            ++count;
+            current = current.next;
+        }
+        return count;
+    }
+
     getNodeData(nodeIdx) {
         if (nodeIdx === 0) {
             return this.head.data;
@@ -118,29 +141,6 @@ class LinkedList {
             }
             behind = behind.next;
         }
-    }
-
-    print() {
-        let str = "";
-        let returnArray = new Array();
-        let current = this.head;
-        while (current) {
-            str += current.data + ' -> ';
-            returnArray.push(current.data);
-            current = current.next;
-        }
-        //console.log(`${str.slice(0,-4)}`);
-        return returnArray;
-    }
-
-    size() {
-        let current = this.head;
-        let count = 0;
-        while (current) {
-            ++count;
-            current = current.next;
-        }
-        return count;
     }
 }
 
