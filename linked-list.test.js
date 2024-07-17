@@ -126,6 +126,14 @@ describe('Linked List Tests', () => {
         expect(() => { linkedList.deleteMiddleNode(nodeToTest)} ).toThrow("Out of bounds.");
     });
 
+    it('should not delete middle node when node entered is head and only node', () => {
+        linkedList = new LinkedList(1);
+        let nodeToTest = new ListNode();
+        nodeToTest.data = 0;
+        nodeToTest.next = null;
+        expect(() => { linkedList.deleteMiddleNode(nodeToTest)} ).toThrow("Out of bounds.");
+    })
+
     it('should not delete middle node when node entered is last', () => {
         linkedList = new LinkedList(5);
         let nodeToTest = new ListNode();
