@@ -141,4 +141,33 @@ describe('Linked List Tests', () => {
         nodeToTest.next = null;
         expect(() => { linkedList.deleteMiddleNode(nodeToTest)} ).toThrow("Out of bounds.");
     });
+
+    it('should rearrange the linked list as in the example', () => {
+        linkedList.addToEnd(3);
+        linkedList.addToEnd(5);
+        linkedList.addToEnd(8);
+        linkedList.addToEnd(5);
+        linkedList.addToEnd(10);
+        linkedList.addToEnd(2);
+        linkedList.addToEnd(1);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(3);
+        expectedList.addToEnd(2);
+        expectedList.addToEnd(1);
+        expectedList.addToEnd(5);
+        expectedList.addToEnd(8);
+        expectedList.addToEnd(5);
+        expectedList.addToEnd(10);
+
+        let nodeToTest = new ListNode();
+        nodeToTest.data = 5;
+        nodeToTest.next = null;
+
+        linkedList = linkedList.partition(nodeToTest);
+
+        for (let i = 0; i < linkedList.size(); ++i) {
+            expect(linkedList.getNodeData(i)).toBe(expectedList.getNodeData(i));
+        }
+    });
 });

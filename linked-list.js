@@ -46,7 +46,7 @@ class LinkedList {
         } else {
             let current = this.head;
             let counter = 0;
-            while(current.next) {
+            while (current.next) {
                 if (nodeIdx === counter) {
                     return current.data;
                 }
@@ -134,7 +134,7 @@ class LinkedList {
                 throw new Error('n out of bounds');
             }
         }
-        while(current) {
+        while (current) {
             current = current.next;
             if (current === null) {
                 return behind.data;
@@ -144,12 +144,12 @@ class LinkedList {
     }
 
     deleteMiddleNode(node) {
-        if (this.head != null && (this.head.data === node.data && this.head.next.data === node.next.data)) {
+        if (this.head !== null && this.head.next !== null && (this.head.data === node.data && this.head.next.data === node.next.data)) {
             throw new Error("Out of bounds.")
         }
         let current = this.head;
         let previous = null;
-        while(current) {
+        while (current) {
             if (current.next === null) {
                 throw new Error("Out of bounds.")
             }
@@ -164,6 +164,28 @@ class LinkedList {
             previous = current;
             current = current.next
         }
+    }
+
+    partition(node) {
+        let current = this.head;
+        let leftPartition = new Array();
+        let rightPartition = new Array();
+        while (current) {
+            if (current.data >= node.data) {
+                rightPartition.push(current.data);
+            } else {
+                leftPartition.push(current.data);
+            }
+            current = current.next
+        }
+        let finalList = new LinkedList();
+        for (let i = 0; i < leftPartition.length; ++i) {
+            finalList.addToEnd(leftPartition[i]);
+        }
+        for (let i = 0; i < rightPartition.length; ++i) {
+            finalList.addToEnd(rightPartition[i]);
+        }
+        return finalList;
     }
 }
 
