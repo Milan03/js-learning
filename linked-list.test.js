@@ -164,7 +164,7 @@ describe('Linked List Tests', () => {
         nodeToTest.data = 5;
         nodeToTest.next = null;
 
-        linkedList = linkedList.partition(nodeToTest);
+        linkedList.partition(nodeToTest);
 
         for (let i = 0; i < linkedList.size(); ++i) {
             expect(linkedList.getNodeData(i)).toBe(expectedList.getNodeData(i));

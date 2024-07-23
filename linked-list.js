@@ -168,24 +168,23 @@ class LinkedList {
 
     partition(node) {
         let current = this.head;
-        let leftPartition = new Array();
-        let rightPartition = new Array();
+        let leftTail = new ListNode();
+        let rightTail = new ListNode();
+        let rightHead = rightTail;
+        let leftHead = leftTail;
         while (current) {
-            if (current.data >= node.data) {
-                rightPartition.push(current.data);
-            } else {
-                leftPartition.push(current.data);
+            if (current.data < node.data) {
+                leftTail.next = current;
+                leftTail = current;
+            } else { 
+                rightTail.next = current;
+                rightTail = current;
             }
             current = current.next
         }
-        let finalList = new LinkedList();
-        for (let i = 0; i < leftPartition.length; ++i) {
-            finalList.addToEnd(leftPartition[i]);
-        }
-        for (let i = 0; i < rightPartition.length; ++i) {
-            finalList.addToEnd(rightPartition[i]);
-        }
-        return finalList;
+        leftTail.next = rightHead.next
+        rightTail.next = null
+        this.head = leftHead.next;
     }
 }
 
