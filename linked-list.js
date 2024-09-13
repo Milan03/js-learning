@@ -7,7 +7,7 @@ class ListNode {
 
 class LinkedList {
     constructor(amtToCreate = 0) {
-        this.head = null;
+        this._head = null;
         this.amtToCreate = amtToCreate;
 
         if (this.amtToCreate > 0) {
@@ -15,6 +15,14 @@ class LinkedList {
                 this.addToEnd(i);
             }
         }
+    }
+
+    get head() {
+        return this._head;
+    }
+
+    set head(node) {
+        this._head = node;
     }
 
     print() {
