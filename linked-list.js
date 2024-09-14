@@ -196,11 +196,11 @@ class LinkedList {
     }
 
     sumLists(nodesToSum) {
-        if (nodesToSum === null) {
-            throw new Error("Linked list to sum cannot be null.");
+        let current = this.head;
+        if (nodesToSum === null || current === null) {
+            throw new Error("Source or incoming list cannot be null.");
         }
         let linkedListToReturn = new LinkedList();
-        let current = this.head;
         let nodesToSummCurr = nodesToSum.head;
         let onesValue = 0;
         while (current || nodesToSummCurr) {
@@ -219,21 +219,16 @@ class LinkedList {
             } else {
                 currentSum = current.data + nodesToSummCurr.data;
             }
-            //console.log(`Current Sum: ${currentSum}`);
             if (currentSum > 9) {
                 onesValue = Math.floor(currentSum / 10);
                 let carry = currentSum % 10;
-                //console.log(`onesValue: ${onesValue}`);
-                //console.log(`carr: ${carry}`);
                 linkedListToReturn.addToEnd(carry);
             } else {
                 linkedListToReturn.addToEnd(currentSum);
             }
-            //console.log(`${linkedListToReturn.print()}`);
             current = current.next;
             nodesToSummCurr = nodesToSummCurr.next;
         }
-        console.log(`Final LL: ${linkedListToReturn.print()}`);
         return linkedListToReturn.print();
     }
 }
