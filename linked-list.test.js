@@ -301,6 +301,25 @@ describe('Linked List Tests', () => {
         }
     });
 
+    it('should sum two lists in reverse order when more than one digit is missing from incoming list', () => {
+        linkedList.addToEnd(7);
+        secondList.addToEnd(9);
+        secondList.addToEnd(3);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(2);
+        expectedList.addToEnd(0);
+        expectedList.addToEnd(4);
+
+        let testList = linkedList.sumLists(secondList);
+        for (let i = 0; i < expectedList.size(); ++i) {
+            expect(testList[i]).toBe(expectedList.getNodeData(i));
+        }
+    });
+
     it('should throw an error when the incoming list is null', () => {
         linkedList = new LinkedList(3);
         expect(() => { linkedList.sumLists(null) }).toThrow('Source or incoming list cannot be null.');
