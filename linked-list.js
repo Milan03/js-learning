@@ -203,7 +203,15 @@ class LinkedList {
         let current = this.head;
         let nodesToSummCurr = nodesToSum.head;
         let onesValue = 0;
-        while (current) {
+        while (current || nodesToSummCurr) {
+            if (!current) {
+                current = new ListNode();
+                current.data = 0;
+            }
+            if (!nodesToSummCurr) {
+                nodesToSummCurr = new ListNode();
+                nodesToSummCurr.data = 0;
+            }
             let currentSum = 0;
             if (onesValue > 0) {
                 currentSum = current.data + nodesToSummCurr.data + onesValue;
@@ -211,45 +219,23 @@ class LinkedList {
             } else {
                 currentSum = current.data + nodesToSummCurr.data;
             }
-            console.log(`Current Sum: ${currentSum}`);
+            //console.log(`Current Sum: ${currentSum}`);
             if (currentSum > 9) {
                 onesValue = Math.floor(currentSum / 10);
                 let carry = currentSum % 10;
-                console.log(`onesValue: ${onesValue}`);
-                console.log(`carr: ${carry}`);
+                //console.log(`onesValue: ${onesValue}`);
+                //console.log(`carr: ${carry}`);
                 linkedListToReturn.addToEnd(carry);
             } else {
                 linkedListToReturn.addToEnd(currentSum);
             }
-            console.log(`${linkedListToReturn.print()}`);
+            //console.log(`${linkedListToReturn.print()}`);
             current = current.next;
             nodesToSummCurr = nodesToSummCurr.next;
         }
         console.log(`Final LL: ${linkedListToReturn.print()}`);
         return linkedListToReturn.print();
     }
-
-
 }
-
-/*let linkedList = new LinkedList();
-linkedList.addToEnd(7);
-linkedList.addToEnd(1);
-linkedList.addToEnd(6);
-
-let secondList = new LinkedList();
-secondList.addToEnd(5);
-secondList.addToEnd(9);
-secondList.addToEnd(2);
-
-let expectedList = new LinkedList();
-expectedList.addToEnd(2);
-expectedList.addToEnd(1);
-expectedList.addToEnd(9);
-
-let testList = linkedList.sumLists(linkedList, secondList);
-for (let i = 0; i < expectedList.size(); ++i) {
-    expect(testList.getNodeData(i)).toBe(expectedList.getNodeData(i));
-}*/
 
 module.exports = { LinkedList, ListNode };

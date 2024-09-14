@@ -241,4 +241,44 @@ describe('Linked List Tests', () => {
             expect(testList[i]).toBe(expectedList.getNodeData(i));
         }
     });
+
+    it('should sum two lists in reverse order when source is shorter than the other', () => {
+        linkedList.addToEnd(7);
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(9);
+        secondList.addToEnd(2);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(2);
+        expectedList.addToEnd(1);
+        expectedList.addToEnd(3);
+
+        let testList = linkedList.sumLists(secondList);
+        for (let i = 0; i < expectedList.size(); ++i) {
+            expect(testList[i]).toBe(expectedList.getNodeData(i));
+        }
+    });
+
+    it('should sum two lists in reverse order when other is shorter than the source', () => {
+        linkedList.addToEnd(7);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(6);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(9);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(2);
+        expectedList.addToEnd(1);
+        expectedList.addToEnd(7);
+
+        let testList = linkedList.sumLists(secondList);
+        for (let i = 0; i < expectedList.size(); ++i) {
+            expect(testList[i]).toBe(expectedList.getNodeData(i));
+        }
+    });
 });
