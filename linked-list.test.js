@@ -77,7 +77,7 @@ describe('Linked List Tests', () => {
 
     it('should removed the named element from the linked list', () => {
         linkedList = new LinkedList(2);
-        
+
         linkedList.remove(1);
 
         expect(linkedList.size()).toBe(1);
@@ -219,5 +219,26 @@ describe('Linked List Tests', () => {
 
         expect(linkedList.head.data).toBe(nodeToTest.data);
         expect(linkedList.head.next).toBe(nodeToTest.next);
+    });
+
+    it('should sum two lists in reverse order', () => {
+        linkedList.addToEnd(7);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(6);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(9);
+        secondList.addToEnd(2);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(2);
+        expectedList.addToEnd(1);
+        expectedList.addToEnd(9);
+
+        let testList = linkedList.sumLists(secondList);
+        for (let i = 0; i < expectedList.size(); ++i) {
+            expect(testList[i]).toBe(expectedList.getNodeData(i));
+        }
     });
 });
