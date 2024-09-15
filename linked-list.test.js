@@ -303,8 +303,8 @@ describe('Linked List Tests', () => {
 
     it('should sum two lists in reverse order when more than one digit is missing from incoming list', () => {
         linkedList.addToEnd(7);
-        secondList.addToEnd(9);
-        secondList.addToEnd(3);
+        linkedList.addToEnd(9);
+        linkedList.addToEnd(3);
 
         let secondList = new LinkedList();
         secondList.addToEnd(5);
@@ -313,6 +313,28 @@ describe('Linked List Tests', () => {
         expectedList.addToEnd(2);
         expectedList.addToEnd(0);
         expectedList.addToEnd(4);
+
+        let testList = linkedList.sumLists(secondList);
+        for (let i = 0; i < expectedList.size(); ++i) {
+            expect(testList[i]).toBe(expectedList.getNodeData(i));
+        }
+    });
+
+    it('should sum two lists in reverse order when the last sum is greater than 9', () => {
+        linkedList.addToEnd(8);
+        linkedList.addToEnd(7);
+        linkedList.addToEnd(9);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(8);
+        secondList.addToEnd(6);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(3);
+        expectedList.addToEnd(6);
+        expectedList.addToEnd(6);
+        expectedList.addToEnd(1);
 
         let testList = linkedList.sumLists(secondList);
         for (let i = 0; i < expectedList.size(); ++i) {

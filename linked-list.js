@@ -229,6 +229,9 @@ class LinkedList {
             current = current.next;
             nodesToSummCurr = nodesToSummCurr.next;
         }
+        if (onesValue > 0) {
+            linkedListToReturn.addToEnd(onesValue);
+        }
         return linkedListToReturn.print();
     }
 }
