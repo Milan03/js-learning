@@ -202,7 +202,7 @@ class LinkedList {
         }
         let linkedListToReturn = new LinkedList();
         let nodesToSummCurr = nodesToSum.head;
-        let onesValue = 0;
+        let carry = 0;
         while (current || nodesToSummCurr) {
             if (!current) {
                 current = new ListNode();
@@ -213,24 +213,24 @@ class LinkedList {
                 nodesToSummCurr.data = 0;
             }
             let currentSum = 0;
-            if (onesValue > 0) {
-                currentSum = current.data + nodesToSummCurr.data + onesValue;
-                onesValue = 0;
+            if (carry > 0) {
+                currentSum = current.data + nodesToSummCurr.data + carry;
+                carry = 0;
             } else {
                 currentSum = current.data + nodesToSummCurr.data;
             }
             if (currentSum > 9) {
-                onesValue = Math.floor(currentSum / 10);
-                let carry = currentSum % 10;
-                linkedListToReturn.addToEnd(carry);
+                carry = Math.floor(currentSum / 10);
+                let onesValue = currentSum % 10;
+                linkedListToReturn.addToEnd(onesValue);
             } else {
                 linkedListToReturn.addToEnd(currentSum);
             }
             current = current.next;
             nodesToSummCurr = nodesToSummCurr.next;
         }
-        if (onesValue > 0) {
-            linkedListToReturn.addToEnd(onesValue);
+        if (carry > 0) {
+            linkedListToReturn.addToEnd(carry);
         }
         return linkedListToReturn.print();
     }
