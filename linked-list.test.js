@@ -65,6 +65,7 @@ describe('Linked List Tests', () => {
         linkedList.addToBeginning(3);
 
         expect(linkedList.getNodeData(0)).toBe(3);
+        expect(linkedList.size()).toBe(6);
     });
 
     it('should add value to beginning when 0 elements are present', () => {

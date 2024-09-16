@@ -54,7 +54,7 @@ class LinkedList {
         } else {
             let current = this.head;
             let counter = 0;
-            while (current.next) {
+            while (current) {
                 if (nodeIdx === counter) {
                     return current.data;
                 }
@@ -86,11 +86,8 @@ class LinkedList {
         if (!this.head) {
             this.head = newNode;
         } else {
-            let current = this.head;
-            while (current.next) {
-                current = current.next;
-            }
-            this.head = newNode;
+            newNode.next = this.head;  // Link the new node to the current head
+            this.head = newNode;       // Set the new node as the new head
         }
     }
 
