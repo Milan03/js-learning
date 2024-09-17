@@ -352,4 +352,94 @@ describe('Linked List Tests', () => {
         let secondList = new LinkedList(1);
         expect(() => { linkedList.sumLists(secondList) }).toThrow('Source or incoming list cannot be null.');
     });
+
+    it('should pad the list with 0s if l1 is shorter than l2', () => {
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(8);
+        secondList.addToEnd(6);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(0);
+        expectedList.addToEnd(0);
+        expectedList.addToEnd(1);
+
+        linkedList.padList(secondList, false);
+        expect(linkedList.size()).toBe(3);
+        expect(linkedList.getNodeData(0)).toBe(0);
+        expect(linkedList.getNodeData(1)).toBe(0);
+        expect(linkedList.getNodeData(2)).toBe(1);
+    });
+
+
+    it('should pad the list with 0s if l1 is shorter than l2, when reverse', () => {
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(8);
+        secondList.addToEnd(6);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(1);
+        expectedList.addToEnd(0);
+        expectedList.addToEnd(0);
+
+        linkedList.padList(secondList, true);
+        expect(linkedList.size()).toBe(3);
+        expect(linkedList.getNodeData(0)).toBe(1);
+        expect(linkedList.getNodeData(1)).toBe(0);
+        expect(linkedList.getNodeData(2)).toBe(0);
+    });
+    
+    it('should pad the list with 0s if l2 is shorter than l1', () => {
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(0);
+        expectedList.addToEnd(0);
+        expectedList.addToEnd(5);
+
+        linkedList.padList(secondList, false);
+        expect(secondList.size()).toBe(3);
+        expect(secondList.getNodeData(0)).toBe(0);
+        expect(secondList.getNodeData(1)).toBe(0);
+        expect(secondList.getNodeData(2)).toBe(5);
+    });
+
+    it('should pad the list with 0s if l2 is shorter than l1, when reverse', () => {
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+
+        let expectedList = new LinkedList();
+        expectedList.addToEnd(5);
+        expectedList.addToEnd(0);
+        expectedList.addToEnd(0);
+
+        linkedList.padList(secondList, true);
+        expect(secondList.size()).toBe(3);
+        expect(secondList.getNodeData(0)).toBe(5);
+        expect(secondList.getNodeData(1)).toBe(0);
+        expect(secondList.getNodeData(2)).toBe(0);
+    });
+
+    it('should throw an error if lists are equal and padList is called', () => {
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+
+        expect(() => { linkedList.padList(secondList, false) }).toThrow('Lists are of equal size.');
+    });
 });

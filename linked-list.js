@@ -193,22 +193,17 @@ class LinkedList {
     }
 
     sumLists(nodesToSum) {
-        let current = this.head;
-        if (nodesToSum === null || current === null) {
+        if (nodesToSum === null || this.head === null) {
             throw new Error("Source or incoming list cannot be null.");
         }
+        if (this.size() !== nodesToSum.size()) {
+            this.padList(nodesToSum, true);
+        }
         let linkedListToReturn = new LinkedList();
+        let current = this.head;
         let nodesToSummCurr = nodesToSum.head;
         let carry = 0;
         while (current || nodesToSummCurr) {
-            if (!current) {
-                current = new ListNode();
-                current.data = 0;
-            }
-            if (!nodesToSummCurr) {
-                nodesToSummCurr = new ListNode();
-                nodesToSummCurr.data = 0;
-            }
             let currentSum = 0;
             if (carry > 0) {
                 currentSum = current.data + nodesToSummCurr.data + carry;
@@ -230,6 +225,30 @@ class LinkedList {
             linkedListToReturn.addToEnd(carry);
         }
         return linkedListToReturn.print();
+    }
+
+    padList(l2, reverse) {
+        if (this.size() < l2.size()) {
+            let zerosToAdd = l2.size() - this.size();
+            for (let i = 0; i < zerosToAdd; ++i) {
+                if (reverse) {
+                    this.addToEnd(0);
+                } else {
+                    this.addToBeginning(0);
+                }
+            }
+        } else if (this.size() > l2.size()) {
+            let zerosToAdd = this.size() - l2.size();
+            for (let i = 0; i < zerosToAdd; ++i) {
+                if (reverse) {
+                    l2.addToEnd(0);
+                } else {
+                    l2.addToBeginning(0);
+                }
+            }
+        } else {
+            throw new Error("Lists are of equal size.");
+        }
     }
 }
 
