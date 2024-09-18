@@ -192,6 +192,30 @@ class LinkedList {
         this.head = leftHead.next;
     }
 
+    padList(l2, reverse) {
+        if (this.size() < l2.size()) {
+            let zerosToAdd = l2.size() - this.size();
+            for (let i = 0; i < zerosToAdd; ++i) {
+                if (reverse) {
+                    this.addToEnd(0);
+                } else {
+                    this.addToBeginning(0);
+                }
+            }
+        } else if (this.size() > l2.size()) {
+            let zerosToAdd = this.size() - l2.size();
+            for (let i = 0; i < zerosToAdd; ++i) {
+                if (reverse) {
+                    l2.addToEnd(0);
+                } else {
+                    l2.addToBeginning(0);
+                }
+            }
+        } else {
+            throw new Error("Lists are of equal size.");
+        }
+    }
+
     sumLists(nodesToSum) {
         if (nodesToSum === null || this.head === null) {
             throw new Error("Source or incoming list cannot be null.");
@@ -227,29 +251,17 @@ class LinkedList {
         return linkedListToReturn.print();
     }
 
-    padList(l2, reverse) {
-        if (this.size() < l2.size()) {
-            let zerosToAdd = l2.size() - this.size();
-            for (let i = 0; i < zerosToAdd; ++i) {
-                if (reverse) {
-                    this.addToEnd(0);
-                } else {
-                    this.addToBeginning(0);
-                }
-            }
-        } else if (this.size() > l2.size()) {
-            let zerosToAdd = this.size() - l2.size();
-            for (let i = 0; i < zerosToAdd; ++i) {
-                if (reverse) {
-                    l2.addToEnd(0);
-                } else {
-                    l2.addToBeginning(0);
-                }
-            }
-        } else {
-            throw new Error("Lists are of equal size.");
+    sumListsForward(nodesToSum) {
+        if (nodesToSum === null || this.head === null) {
+            throw new Error("Source or incoming list cannot be null.");
         }
-    }
+        if (this.size() !== nodesToSum.size()) {
+            this.padList(nodesToSum, true);
+        }
+        let linkedListToReturn = new LinkedList();
+        let current = this.head;
+        let nodesToSummCurr = nodesToSum.head;
+     }
 }
 
 module.exports = { LinkedList, ListNode };

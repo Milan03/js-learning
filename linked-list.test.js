@@ -426,7 +426,6 @@ describe('Linked List Tests', () => {
         expectedList.addToEnd(5);
         expectedList.addToEnd(0);
         expectedList.addToEnd(0);
-
         linkedList.padList(secondList, true);
         expect(secondList.size()).toBe(3);
         expect(secondList.getNodeData(0)).toBe(5);
