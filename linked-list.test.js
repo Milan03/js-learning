@@ -472,4 +472,40 @@ describe('Linked List Tests', () => {
 
         expect(() => { linkedList.removeAtIdx(5); }).toThrow('Out of bounds');
     });
+
+    it('should sum the nodes at the end of the list and remove summed nodes, if sum is greater than 9', () => {
+        linkedList.addToEnd(8);
+        linkedList.addToEnd(7);
+        linkedList.addToEnd(9);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(8);
+        secondList.addToEnd(6);
+
+        let result = linkedList.doNodeSum(secondList, 0);
+        expect(result.onesValue).toBe(5);
+        expect(result.carry).toBe(1);
+        expect(linkedList.size()).toBe(2);
+        expect(secondList.size()).toBe(2);
+    });
+
+
+    it('should sum the nodes at the end of the list and remove summed nodes, if sum is less than 10', () => {
+        linkedList.addToEnd(8);
+        linkedList.addToEnd(7);
+        linkedList.addToEnd(9);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(5);
+        secondList.addToEnd(8);
+        secondList.addToEnd(0);
+
+        let result = linkedList.doNodeSum(secondList, 0);
+        expect(result.onesValue).toBe(9);
+        expect(result.carry).toBe(0);
+        expect(linkedList.size()).toBe(2);
+        expect(secondList.size()).toBe(2);
+    });
+
 });

@@ -274,6 +274,19 @@ class LinkedList {
         return linkedListToReturn.print();
     }
 
+    doNodeSum(l2, carry) {
+        let sum = this.getNodeData(this.size() - 1) + l2.getNodeData(l2.size() - 1) + carry;
+        this.removeAtIdx(this.size() - 1);
+        l2.removeAtIdx(l2.size() - 1);
+        if (sum > 9) {
+            let carry = Math.floor(sum / 10);
+            let onesValue = sum % 10;
+            return { carry: carry, onesValue: onesValue };
+        } else {
+            return { carry: 0, onesValue: sum };
+        }
+    }
+
     sumListsForward(nodesToSum) {
         if (nodesToSum === null || this.head === null) {
             throw new Error("Source or incoming list cannot be null.");
