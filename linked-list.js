@@ -292,11 +292,19 @@ class LinkedList {
             throw new Error("Source or incoming list cannot be null.");
         }
         if (this.size() !== nodesToSum.size()) {
-            this.padList(nodesToSum, true);
+            this.padList(nodesToSum, false);
         }
         let linkedListToReturn = new LinkedList();
-        let current = this.head;
-        let nodesToSummCurr = nodesToSum.head;
+        let carry = 0;
+        while (this.size() > 0) {
+            let result = this.doNodeSum(nodesToSum, carry);
+            linkedListToReturn.addToBeginning(result.onesValue);
+            carry = result.carry;
+        }
+        if (carry > 0) {
+            linkedListToReturn.addToBeginning(carry);
+        }
+        return linkedListToReturn;
      }
 }
 

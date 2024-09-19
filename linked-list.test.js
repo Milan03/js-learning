@@ -507,5 +507,69 @@ describe('Linked List Tests', () => {
         expect(linkedList.size()).toBe(2);
         expect(secondList.size()).toBe(2);
     });
+    
+    it('should sum lists in a forward manner', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);
 
+        let secondList = new LinkedList();
+        secondList.addToEnd(2);
+        secondList.addToEnd(9);
+        secondList.addToEnd(5);
+
+        let resultList = linkedList.sumListsForward(secondList);
+        expect(resultList.size()).toBe(3);
+        expect(resultList.getNodeData(0)).toBe(9);
+        expect(resultList.getNodeData(1)).toBe(1);
+        expect(resultList.getNodeData(2)).toBe(2);
+    });
+
+    it('should sum lists in a forward manner if carry is left over', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(6);
+        secondList.addToEnd(9);
+        secondList.addToEnd(5);
+
+        let resultList = linkedList.sumListsForward(secondList);
+        expect(resultList.size()).toBe(4);
+        expect(resultList.getNodeData(0)).toBe(1);
+        expect(resultList.getNodeData(1)).toBe(3);
+        expect(resultList.getNodeData(2)).toBe(1);
+        expect(resultList.getNodeData(3)).toBe(2);
+    });
+
+    it('should sum lists in a forward manner, if source list is shorter than input list', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(2);
+        secondList.addToEnd(9);
+        secondList.addToEnd(5);
+
+        let resultList = linkedList.sumListsForward(secondList);
+        expect(resultList.size()).toBe(3);
+        expect(resultList.getNodeData(0)).toBe(3);
+        expect(resultList.getNodeData(1)).toBe(5);
+        expect(resultList.getNodeData(2)).toBe(6);
+    });
+
+
+    it('should sum lists in a forward manner, if input list is shorter than source list', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(2);
+
+        let resultList = linkedList.sumListsForward(secondList);
+        expect(resultList.size()).toBe(2);
+        expect(resultList.getNodeData(0)).toBe(6);
+        expect(resultList.getNodeData(1)).toBe(3);
+    });
 });
