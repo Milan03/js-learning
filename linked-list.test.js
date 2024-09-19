@@ -441,4 +441,35 @@ describe('Linked List Tests', () => {
 
         expect(() => { linkedList.padList(secondList, false) }).toThrow('Lists are of equal size.');
     });
+
+    it('should remove node at specified index',() => {
+        linkedList = new LinkedList(5);
+
+        linkedList.removeAtIdx(3);
+
+        expect(linkedList.size()).toBe(4);
+        expect(linkedList.getNodeData(0)).toBe(0);
+        expect(linkedList.getNodeData(1)).toBe(1);
+        expect(linkedList.getNodeData(2)).toBe(2);
+        expect(linkedList.getNodeData(3)).toBe(4);
+    });
+
+ 
+    it('should remove node end of list',() => {
+        linkedList = new LinkedList(5);
+
+        linkedList.removeAtIdx(linkedList.size()  - 1);
+
+        expect(linkedList.size()).toBe(4);
+        expect(linkedList.getNodeData(0)).toBe(0);
+        expect(linkedList.getNodeData(1)).toBe(1);
+        expect(linkedList.getNodeData(2)).toBe(2);
+        expect(linkedList.getNodeData(3)).toBe(3);
+    });   
+
+    it('should throw error if trying to remove index that is out of bounds', () => {
+        linkedList = new LinkedList(5);
+
+        expect(() => { linkedList.removeAtIdx(5); }).toThrow('Out of bounds');
+    });
 });

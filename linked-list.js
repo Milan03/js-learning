@@ -109,6 +109,29 @@ class LinkedList {
         }
         return false; // Data not found
     }
+    
+    removeAtIdx(idx) {
+        if (idx > this.size() - 1) {
+            throw new Error("Out of bounds.");
+        }
+        let current = this.head;
+        let previous = null;
+        let idxCount = 0;
+
+        while (current) {
+            if (idx === idxCount) {
+                if (previous) {
+                    previous.next = current.next;
+                } else {
+                    this.head = current.next;
+                }
+                return true; // Data found and removed
+            }
+            previous = current;
+            current = current.next;
+            ++idxCount;
+        }
+    }
 
     removeDups() {
         let current = this.head;
