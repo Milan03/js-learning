@@ -1,4 +1,5 @@
-const { sum, reverseWord, isPalindrome } = require('./recursion-practice');
+const { sum, reverseWord, isPalindrome, 
+    findGreatestCommonDivisor } = require('./recursion-practice');
 
 describe('Recursion Practice Tests', () => {
     it('should sum numbers 1 to n', () => {
@@ -16,5 +17,12 @@ describe('Recursion Practice Tests', () => {
         expect(isPalindrome("hello")).toEqual(false);
         expect(isPalindrome("A man, a plan, a canal, Panama!")).toEqual(true);
         expect(isPalindrome("This is not a palindrome phrase")).toEqual(false);
+    });
+
+    it('should find the greatest common divisor between two numbers', () => {
+        expect(findGreatestCommonDivisor(48, 18)).toEqual(6);
+        expect(findGreatestCommonDivisor(-48, -18)).toEqual(6);
+        expect(findGreatestCommonDivisor(100, 25)).toEqual(25);
+        expect(() => { findGreatestCommonDivisor(0, 0) }).toThrow("Values must be non-zero.");
     });
 });

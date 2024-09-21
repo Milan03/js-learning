@@ -25,4 +25,22 @@ function isPalindrome(str) {
         isPalindrome(str.substring(1, str.length - 1)) : false;
 }
 
-module.exports = { sum, reverseWord, isPalindrome };
+function findGreatestCommonDivisor(a, b) {
+    if (a === 0) {
+        throw new Error("Values must be non-zero.");
+    }
+    if (b === 0) {
+        return Math.abs(a);
+    }
+    
+    if (a < 0) {
+        a = Math.abs(a);
+    }
+    if (b < 0) {
+        b = Math.abs(b);
+    }
+
+    return findGreatestCommonDivisor(b, a % b);
+}
+
+module.exports = { sum, reverseWord, isPalindrome, findGreatestCommonDivisor };
