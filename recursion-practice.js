@@ -14,4 +14,15 @@ function reverseWord(word) {
     return reverseWord(word.slice(1)) + word[0];
 }
 
-module.exports = { sum, reverseWord };
+function isPalindrome(str) {
+    str = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    
+    if (str.length === 0 || str.length === 1) {
+        return true;
+    }
+
+    return (str[0] === str[str.length - 1]) ? 
+        isPalindrome(str.substring(1, str.length - 1)) : false;
+}
+
+module.exports = { sum, reverseWord, isPalindrome };

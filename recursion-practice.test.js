@@ -1,4 +1,4 @@
-const { sum, reverseWord } = require('./recursion-practice');
+const { sum, reverseWord, isPalindrome } = require('./recursion-practice');
 
 describe('Recursion Practice Tests', () => {
     it('should sum numbers 1 to n', () => {
@@ -9,5 +9,12 @@ describe('Recursion Practice Tests', () => {
     
     it('should reverse the word', () => {
         expect(reverseWord("Hello")).toBe("olleH");
+    });
+
+    it('should determine if the word is a palindrome', () => {
+        expect(isPalindrome("racecar")).toEqual(true);
+        expect(isPalindrome("hello")).toEqual(false);
+        expect(isPalindrome("A man, a plan, a canal, Panama!")).toEqual(true);
+        expect(isPalindrome("This is not a palindrome phrase")).toEqual(false);
     });
 });
