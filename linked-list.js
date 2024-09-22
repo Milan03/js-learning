@@ -306,6 +306,20 @@ class LinkedList {
         }
         return linkedListToReturn;
      }
+
+    isPalindrome() {
+        if (this.size() === 0 || this.size() === 1) {
+            return true;
+        }
+        
+        if (this.getNodeData(0) === this.getNodeData(this.size() - 1)) {
+            this.removeAtIdx(0);
+            this.removeAtIdx(this.size() - 1);
+            return this.isPalindrome();
+        } else {
+            return false;
+        }
+    }
 }
 
 module.exports = { LinkedList, ListNode };

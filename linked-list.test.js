@@ -572,4 +572,25 @@ describe('Linked List Tests', () => {
         expect(resultList.getNodeData(0)).toBe(6);
         expect(resultList.getNodeData(1)).toBe(3);
     });
+
+    it('should determine of the linked list is a palindrome', () => {
+        linkedList.addToEnd(2);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(2);
+
+        expect(linkedList.isPalindrome()).toBe(true);
+    });
+    
+
+    it('should determine of the linked list is not a palindrome', () => {
+        linkedList.addToEnd(2);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(2);
+        linkedList.addToEnd(2);
+
+        expect(linkedList.isPalindrome()).toBe(false);
+    });
+
 });
