@@ -372,6 +372,22 @@ class LinkedList {
             true : false;
     }
 
+    getNode(n) {
+        if (!n) {
+            throw new Error("Node cannot be null.");
+        }
+
+        let current = this.head;
+        while (current) {
+            if (this.checkNodeEquality(current, n)) {
+                return current;
+            }
+            current = current.next;
+        }
+
+        throw new Error("Node not found.");
+    }
+
 }
 
 module.exports = { LinkedList, ListNode };

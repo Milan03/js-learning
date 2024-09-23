@@ -650,4 +650,26 @@ describe('Linked List Tests', () => {
         expect(linkedList.checkNodeEquality(n1, n2)).toBe(false);
     });
 
+    it('should return the node', () => {
+        linkedList = new LinkedList(5);
+
+        const nodeToFind = new ListNode(3);
+        const nextNode = new ListNode(4);
+        nodeToFind.next = nextNode;
+
+        let foundNode = linkedList.getNode(nodeToFind);
+        expect(foundNode).toEqual(nodeToFind);
+    });
+
+    it('should fail to get node when n is null or node is not found', () => {
+        linkedList = new LinkedList(5);
+
+        const nodeToFind = new ListNode(5);
+        const nextNode = new ListNode(6);
+        nodeToFind.next = nextNode;
+
+        expect(() => { linkedList.getNode(null) }).toThrow('Node cannot be null');
+        expect(() => { linkedList.getNode(nodeToFind) }).toThrow('Node not found.');
+    });
+
 });
