@@ -362,6 +362,16 @@ class LinkedList {
             return false;
         }
     }
+
+    checkNodeEquality(n1, n2) {
+        if (!n1 || !n2) {
+            return false;
+        }
+
+        return (n1.data === n2.data && n1.next.data === n2.next.data) ?
+            true : false;
+    }
+
 }
 
 module.exports = { LinkedList, ListNode };

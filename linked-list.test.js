@@ -627,4 +627,27 @@ describe('Linked List Tests', () => {
         expect(linkedList.isPalindrome()).toBe(false);
     });
 
+    it('should determine if nodes are equal', () => {
+        const n1 = new ListNode(1);
+        const n2 = new ListNode(1);
+        const nextNode = new ListNode(2);
+
+        n1.next = nextNode;
+        n2.next = nextNode;
+
+        expect(linkedList.checkNodeEquality(n1, n2)).toBe(true);
+    });
+
+    it('should determine if nodes are not equal', () => {
+        const n1 = new ListNode(1);
+        const n2 = new ListNode(1);
+        const nextNode = new ListNode(2);
+        const anotherNode = new ListNode(3);
+
+        n1.next = nextNode;
+        n2.next = anotherNode;
+
+        expect(linkedList.checkNodeEquality(n1, n2)).toBe(false);
+    });
+
 });
