@@ -573,6 +573,41 @@ describe('Linked List Tests', () => {
         expect(resultList.getNodeData(1)).toBe(3);
     });
 
+    it('should sum lists in a forward manner, recursively', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(2);
+        secondList.addToEnd(9);
+        secondList.addToEnd(5);
+
+        let resultList = linkedList.sumListsForwardRecursive(secondList);
+        expect(resultList.size()).toBe(3);
+        expect(resultList.getNodeData(0)).toBe(9);
+        expect(resultList.getNodeData(1)).toBe(1);
+        expect(resultList.getNodeData(2)).toBe(2);
+    });
+
+    it('should sum lists in a forward manner if carry is left over, recursively', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(6);
+        secondList.addToEnd(9);
+        secondList.addToEnd(5);
+
+        let resultList = linkedList.sumListsForwardRecursive(secondList);
+        expect(resultList.size()).toBe(4);
+        expect(resultList.getNodeData(0)).toBe(1);
+        expect(resultList.getNodeData(1)).toBe(3);
+        expect(resultList.getNodeData(2)).toBe(1);
+        expect(resultList.getNodeData(3)).toBe(2);
+    });   
+
     it('should determine of the linked list is a palindrome', () => {
         linkedList.addToEnd(2);
         linkedList.addToEnd(1);
@@ -581,7 +616,6 @@ describe('Linked List Tests', () => {
 
         expect(linkedList.isPalindrome()).toBe(true);
     });
-    
 
     it('should determine of the linked list is not a palindrome', () => {
         linkedList.addToEnd(2);

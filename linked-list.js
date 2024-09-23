@@ -305,7 +305,49 @@ class LinkedList {
             linkedListToReturn.addToBeginning(carry);
         }
         return linkedListToReturn;
-     }
+    }
+
+    doNodeSumRecursive(l1, l2) {
+        if (!l1 && !l2) {
+            return { node: null, carry: 0 };
+        }
+
+        let result = this.doNodeSumRecursive(
+            l1 ? l1.next : null, l2 ? l2.next : null);
+
+        let sum = result.carry;
+        if (l1) {
+            sum += l1.data;
+        } 
+        if (l2) {
+            sum += l2.data;
+        }
+
+        let newNode = new ListNode();
+        newNode.data = sum % 10;
+        newNode.next = result.node;
+
+        return { node: newNode, carry: Math.floor(sum / 10) };
+    }
+
+    sumListsForwardRecursive(nodesToSum) {
+        if (nodesToSum === null || this.head === null) {
+            throw new Error("Source or incoming list cannot be null.");
+        }
+        if (this.size() !== nodesToSum.size()) {
+            this.padList(nodesToSum, false);
+        }
+        let llToReturn = new LinkedList();
+        let result = this.doNodeSumRecursive(this.head, nodesToSum.head, 0);
+        if (result.carry > 0) {
+            llToReturn.head = new ListNode(result.carry);
+            llToReturn.head.next = result.node;
+        } else {
+            llToReturn.head = result.node;
+        }
+
+        return llToReturn;
+    }
 
     isPalindrome() {
         if (this.size() === 0 || this.size() === 1) {
