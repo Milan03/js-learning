@@ -635,7 +635,7 @@ describe('Linked List Tests', () => {
         n1.next = nextNode;
         n2.next = nextNode;
 
-        expect(linkedList.checkNodeEquality(n1, n2)).toBe(true);
+        expect(linkedList.checkNodeEqualityByRef(n1.next, n2.next)).toBe(true);
     });
 
     it('should determine if nodes are not equal', () => {
@@ -647,7 +647,7 @@ describe('Linked List Tests', () => {
         n1.next = nextNode;
         n2.next = anotherNode;
 
-        expect(linkedList.checkNodeEquality(n1, n2)).toBe(false);
+        expect(linkedList.checkNodeEqualityByRef(n1.next, n2.next)).toBe(false);
     });
 
     it('should return the node', () => {

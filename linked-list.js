@@ -363,13 +363,14 @@ class LinkedList {
         }
     }
 
-    checkNodeEquality(n1, n2) {
+    checkNodeEqualityByRef(n1, n2) {
         if (!n1 || !n2) {
             return false;
         }
 
-        return (n1.data === n2.data && n1.next.data === n2.next.data) ?
-            true : false;
+        // return (n1.data === n2.data && n1.next.data === n2.next.data) ?
+        //     true : false;
+        return (n1 === n2) ? true : false;
     }
 
     getNode(n) {
@@ -379,7 +380,7 @@ class LinkedList {
 
         let current = this.head;
         while (current) {
-            if (this.checkNodeEquality(current, n)) {
+            if (this.checkNodeEqualityByRef(current, n)) {
                 return current;
             }
             current = current.next;
@@ -389,7 +390,7 @@ class LinkedList {
     }
 
     intersection(l2) {
-        if (!this.head || !l2) {
+        if (!this.head || !l2.head) {
             throw new Error("One or both of the lists cannot be null.");
         }
         if (this.getNodeData(this.size() - 1) === l2.getNodeData(l2.size() - 1)) {
@@ -399,7 +400,7 @@ class LinkedList {
             let current = this.head;
             let l2Node = l2.head;
             while (current) {
-                if (this.checkNodeEquality(current, l2Node)) {
+                if (this.checkNodeEqualityByRef(current, l2Node)) {
                     return current;
                 }
                 current = current.next;
