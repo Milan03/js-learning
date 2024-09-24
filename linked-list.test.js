@@ -653,45 +653,50 @@ describe('Linked List Tests', () => {
     it('should return the node', () => {
         linkedList = new LinkedList(5);
 
-        const nodeToFind = new ListNode(3);
-        const nextNode = new ListNode(4);
-        nodeToFind.next = nextNode;
+        const nodeToFind = new ListNode(2);
+        nodeToFind.next = new ListNode(3);
+        nodeToFind.next.next = new ListNode(4);
 
-        let foundNode = linkedList.getNode(nodeToFind);
+        let foundNode = linkedList.getNodeAtIdx(2);
         expect(foundNode).toEqual(nodeToFind);
     });
 
-    it('should fail to get node when n is null or node is not found', () => {
+    it('should fail to get node when n is null or n is out of bounds', () => {
         linkedList = new LinkedList(5);
 
         const nodeToFind = new ListNode(5);
-        const nextNode = new ListNode(6);
-        nodeToFind.next = nextNode;
+        nodeToFind.next = new ListNode(6);
 
-        expect(() => { linkedList.getNode(null) }).toThrow('Node cannot be null');
-        expect(() => { linkedList.getNode(nodeToFind) }).toThrow('Node not found.');
+        expect(() => { linkedList.getNodeAtIdx(null) }).toThrow('Index cannot be null');
+        expect(() => { linkedList.getNodeAtIdx(nodeToFind) }).toThrow('Node not found.');
     });
 
     it('should determine if lists intersect and return the intersecting node', () => {
+        const nodeToGet = new ListNode(7);
+        nodeToGet.next = new ListNode(1);
+        nodeToGet.next.next = new ListNode(2);
+        nodeToGet.next.next.next = new ListNode(3);
+        
         linkedList.addToEnd(6);
         linkedList.addToEnd(1);
-        linkedList.addToEnd(7);  
-        linkedList.addToEnd(1);  
-        linkedList.addToEnd(2);  
-        linkedList.addToEnd(3);  
+        const l1EndNode = linkedList.getNodeAtIdx(1);
+        l1EndNode.next = nodeToGet;
+        // linkedList.addToEnd(7);  
+        // linkedList.addToEnd(1);  
+        // linkedList.addToEnd(2);  
+        // linkedList.addToEnd(3);  
 
         let secondList = new LinkedList();
         secondList.addToEnd(6);
         secondList.addToEnd(9);
-        secondList.addToEnd(7);
-        secondList.addToEnd(1);
-        secondList.addToEnd(2);
-        secondList.addToEnd(3);
-
-        const nodeToGet = new ListNode();
-        nodeToGet.data = 7;
-        nodeToGet.next = new ListNode(1);
-        const nodeToTest = linkedList.getNode(nodeToGet);
+        const l2EndNode = linkedList.getNodeAtIdx(1);
+        l2EndNode.next = nodeToGet;
+        // secondList.addToEnd(7);
+        // secondList.addToEnd(1);
+        // secondList.addToEnd(2);
+        // secondList.addToEnd(3);
+        
+        const nodeToTest = linkedList.getNodeAtIdx(2);
 
         let intersectingNode = linkedList.intersection(secondList);
         expect(intersectingNode).toEqual(nodeToTest);

@@ -373,17 +373,19 @@ class LinkedList {
         return (n1 === n2) ? true : false;
     }
 
-    getNode(n) {
+    getNodeAtIdx(n) {
         if (!n) {
-            throw new Error("Node cannot be null.");
+            throw new Error("Index cannot be null.");
         }
 
+        let idxCount = 0;
         let current = this.head;
         while (current) {
-            if (this.checkNodeEqualityByRef(current, n)) {
+            if (idxCount === n) {
                 return current;
             }
             current = current.next;
+            ++idxCount;
         }
 
         throw new Error("Node not found.");
@@ -393,7 +395,7 @@ class LinkedList {
         if (!this.head || !l2.head) {
             throw new Error("One or both of the lists cannot be null.");
         }
-        if (this.getNodeData(this.size() - 1) === l2.getNodeData(l2.size() - 1)) {
+        if (this.getNodeAtIdx(this.size() - 1) === l2.getNodeAtIdx(l2.size() - 1)) {
             if (this.size() !== l2.size()) {
                 this.padList(l2, false);
             }
