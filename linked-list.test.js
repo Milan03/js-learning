@@ -672,4 +672,129 @@ describe('Linked List Tests', () => {
         expect(() => { linkedList.getNode(nodeToFind) }).toThrow('Node not found.');
     });
 
+    it('should determine if lists intersect and return the intersecting node', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);  
+        linkedList.addToEnd(1);  
+        linkedList.addToEnd(2);  
+        linkedList.addToEnd(3);  
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(6);
+        secondList.addToEnd(9);
+        secondList.addToEnd(7);
+        secondList.addToEnd(1);
+        secondList.addToEnd(2);
+        secondList.addToEnd(3);
+
+        const nodeToGet = new ListNode();
+        nodeToGet.data = 7;
+        nodeToGet.next = new ListNode(1);
+        const nodeToTest = linkedList.getNode(nodeToGet);
+
+        let intersectingNode = linkedList.intersection(secondList);
+        expect(intersectingNode).toEqual(nodeToTest);
+    });
+
+    it('should determine if lists dont intersect due to null lists', () => {
+        expect(() => { linkedList.intersection(null) }).toThrow(
+            'One or both of the lists cannot be null.');
+
+        const secondList = new LinkedList(3);
+        expect(() => { linkedList.intersection(secondList) }).toThrow(
+            'One or both of the lists cannot be null.');
+    });
+
+    it('should determine if lists do not intersect', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);  
+        linkedList.addToEnd(1);  
+        linkedList.addToEnd(2);  
+        linkedList.addToEnd(3);  
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(6);
+        secondList.addToEnd(9);
+        secondList.addToEnd(7);
+        secondList.addToEnd(5);
+        secondList.addToEnd(2);
+        secondList.addToEnd(9);
+
+        expect(() => { linkedList.intersection(secondList) }).toThrow('Lists do not intersect.');
+    });
+
+    it('should determine if lists intersect at head and return the intersecting node', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);  
+        linkedList.addToEnd(1);  
+        linkedList.addToEnd(2);  
+        linkedList.addToEnd(3);  
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(6);
+        secondList.addToEnd(1);
+        secondList.addToEnd(7);
+        secondList.addToEnd(1);
+        secondList.addToEnd(2);
+        secondList.addToEnd(3);
+
+        const nodeToGet = new ListNode();
+        nodeToGet.data = 6;
+        nodeToGet.next = new ListNode(1);
+        const nodeToTest = linkedList.getNode(nodeToGet);
+
+        let intersectingNode = linkedList.intersection(secondList);
+        expect(intersectingNode).toEqual(nodeToTest);
+    });
+
+    it('should determine if lists intersect and return the intersecting node, if source list is shorter', () => {
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(1);
+        linkedList.addToEnd(7);  
+        linkedList.addToEnd(1);  
+        linkedList.addToEnd(2);  
+        linkedList.addToEnd(3);  
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(7);
+        secondList.addToEnd(1);
+        secondList.addToEnd(2);
+        secondList.addToEnd(3);
+
+        const nodeToGet = new ListNode();
+        nodeToGet.data = 7;
+        nodeToGet.next = new ListNode(1);
+        const nodeToTest = linkedList.getNode(nodeToGet);
+
+        let intersectingNode = linkedList.intersection(secondList);
+        expect(intersectingNode).toEqual(nodeToTest);
+    });
+ 
+    it('should determine if lists intersect and return the intersecting node, if input list is shorter', () => {
+        linkedList.addToEnd(7);  
+        linkedList.addToEnd(1);  
+        linkedList.addToEnd(2);  
+        linkedList.addToEnd(3);  
+
+        let secondList = new LinkedList();
+        secondList.addToEnd(6);
+        secondList.addToEnd(1);
+        secondList.addToEnd(7);
+        secondList.addToEnd(1);
+        secondList.addToEnd(2);
+        secondList.addToEnd(3);
+
+        const nodeToGet = new ListNode();
+        nodeToGet.data = 7;
+        nodeToGet.next = new ListNode(1);
+        const nodeToTest = linkedList.getNode(nodeToGet);
+
+        let intersectingNode = linkedList.intersection(secondList);
+        expect(intersectingNode).toEqual(nodeToTest);
+    });
+
+
 });

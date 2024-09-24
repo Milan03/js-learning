@@ -388,6 +388,26 @@ class LinkedList {
         throw new Error("Node not found.");
     }
 
+    intersection(l2) {
+        if (!this.head || !l2) {
+            throw new Error("One or both of the lists cannot be null.");
+        }
+        if (this.getNodeData(this.size() - 1) === l2.getNodeData(l2.size() - 1)) {
+            if (this.size() !== l2.size()) {
+                this.padList(l2, false);
+            }
+            let current = this.head;
+            let l2Node = l2.head;
+            while (current) {
+                if (this.checkNodeEquality(current, l2Node)) {
+                    return current;
+                }
+                current = current.next;
+                l2Node = l2Node.next;
+            }
+        }
+        throw new Error("Lists do not intersect.");
+    }
 }
 
 module.exports = { LinkedList, ListNode };
