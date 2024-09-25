@@ -109,7 +109,7 @@ class LinkedList {
         }
         return false; // Data not found
     }
-    
+
     removeAtIdx(idx) {
         if (idx > this.size() - 1) {
             throw new Error("Out of bounds.");
@@ -318,7 +318,7 @@ class LinkedList {
         let sum = result.carry;
         if (l1) {
             sum += l1.data;
-        } 
+        }
         if (l2) {
             sum += l2.data;
         }
@@ -353,7 +353,7 @@ class LinkedList {
         if (this.size() === 0 || this.size() === 1) {
             return true;
         }
-        
+
         if (this.getNodeData(0) === this.getNodeData(this.size() - 1)) {
             this.removeAtIdx(0);
             this.removeAtIdx(this.size() - 1);
@@ -368,8 +368,6 @@ class LinkedList {
             return false;
         }
 
-        // return (n1.data === n2.data && n1.next.data === n2.next.data) ?
-        //     true : false;
         return (n1 === n2) ? true : false;
     }
 
@@ -396,17 +394,52 @@ class LinkedList {
             throw new Error("One or both of the lists cannot be null.");
         }
         if (this.getNodeAtIdx(this.size() - 1) === l2.getNodeAtIdx(l2.size() - 1)) {
+            let current;
+            let l2Node;
+            let sourceOffset = 0;
+            let inputOffset = 0;
             if (this.size() !== l2.size()) {
-                this.padList(l2, false);
-            }
-            let current = this.head;
-            let l2Node = l2.head;
-            while (current) {
-                if (this.checkNodeEqualityByRef(current, l2Node)) {
-                    return current;
+                if (this.size() < l2.size()) {
+                    sourceOffset = l2.size() - this.size();
+                } else if (this.size() > l2.size()) {
+                    inputOffset = this.size() - l2.size();
                 }
-                current = current.next;
-                l2Node = l2Node.next;
+            }
+            if (sourceOffset === 0 && inputOffset === 0) {
+                current = this.head;
+                l2Node = l2.head;
+            } else if (sourceOffset > 0) {
+                current = this.head;
+            } else if (inputOffset > 0) {
+                l2Node = l2.head;
+            }
+            let offsetCount = 0;
+            console.log(`current: ${current}`);
+            console.log(`l2Node: ${l2Node}`);
+            while (current || l2Node) {
+                console.log(`offsetCount: ${offsetCount}`)
+                if (sourceOffset > 0 && offsetCount >= sourceOffset) {
+                    if (!current) {
+                        current = this.head;
+                    } else {
+                        current = current.next;
+                    }
+                }
+                if (inputOffset > 0 && offsetCount >= inputOffset) {
+                    if (!l2Node) {
+                        l2Node = l2.head;
+                    } else {
+                        l2Node = l2Node.next;
+                    }
+                }
+                if (current && l2Node) {
+                    if (this.checkNodeEqualityByRef(current, l2Node)) {
+                        return current;
+                    }
+                    current = current.next;
+                    l2Node = l2Node.next;
+                }
+                ++offsetCount;
             }
         }
         throw new Error("Lists do not intersect.");
