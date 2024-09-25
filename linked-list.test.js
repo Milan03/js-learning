@@ -765,27 +765,22 @@ describe('Linked List Tests', () => {
     });
  
     it('should determine if lists intersect and return the intersecting node, if input list is shorter', () => {
-        linkedList.addToEnd(7);  
-        linkedList.addToEnd(1);  
-        linkedList.addToEnd(2);  
-        linkedList.addToEnd(3);  
+        const sharedNode = new ListNode(7);
+        sharedNode.next = new ListNode(1);
+        sharedNode.next.next = new ListNode(2);
+        sharedNode.next.next.next = new ListNode(3);
+        
+        linkedList.addToEnd(6);
+        linkedList.addToEnd(9)
+        const l1EndNode = linkedList.getNodeAtIdx(1);
+        l1EndNode.next = sharedNode;
 
         let secondList = new LinkedList();
         secondList.addToEnd(6);
-        secondList.addToEnd(1);
-        secondList.addToEnd(7);
-        secondList.addToEnd(1);
-        secondList.addToEnd(2);
-        secondList.addToEnd(3);
-
-        const nodeToGet = new ListNode();
-        nodeToGet.data = 7;
-        nodeToGet.next = new ListNode(1);
-        const nodeToTest = linkedList.getNode(nodeToGet);
+        const l2EndNode = secondList.getNodeAtIdx(0);
+        l2EndNode.next = sharedNode;
 
         let intersectingNode = linkedList.intersection(secondList);
-        expect(intersectingNode).toEqual(nodeToTest);
+        expect(intersectingNode).toEqual(sharedNode);
     });
-
-
 });

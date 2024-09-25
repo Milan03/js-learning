@@ -410,35 +410,39 @@ class LinkedList {
                 current = this.head;
                 l2Node = l2.head;
             } else if (sourceOffset > 0) {
-                current = this.head;
-            } else if (inputOffset > 0) {
                 l2Node = l2.head;
+            } else if (inputOffset > 0) {
+                current = this.head;
             }
             let offsetCount = 0;
             console.log(`current: ${current}`);
             console.log(`l2Node: ${l2Node}`);
             while (current || l2Node) {
-                console.log(`offsetCount: ${offsetCount}`)
-                if (sourceOffset > 0 && offsetCount >= sourceOffset) {
+                console.log(`offsetCount: ${offsetCount}`);
+                if (this.checkNodeEqualityByRef(current, l2Node)) {
+                    return current;
+                }
+                if (current && l2Node) {
+                    current = current.next;
+                    l2Node = l2Node.next;
+                } else if (sourceOffset > 0 && offsetCount >= sourceOffset) {
                     if (!current) {
                         current = this.head;
                     } else {
                         current = current.next;
                     }
-                }
-                if (inputOffset > 0 && offsetCount >= inputOffset) {
+                    if (l2Node) {
+                        l2Node = l2Node.next;
+                    }
+                } else if (inputOffset > 0 && offsetCount >= inputOffset) {
                     if (!l2Node) {
                         l2Node = l2.head;
                     } else {
                         l2Node = l2Node.next;
                     }
-                }
-                if (current && l2Node) {
-                    if (this.checkNodeEqualityByRef(current, l2Node)) {
-                        return current;
+                    if (current) {
+                        current = current.next;
                     }
-                    current = current.next;
-                    l2Node = l2Node.next;
                 }
                 ++offsetCount;
             }
