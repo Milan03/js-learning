@@ -372,7 +372,8 @@ class LinkedList {
     }
 
     getNodeAtIdx(n) {
-        if (!n) {
+        console.log(`getNodeAtIdx n: ${n}`);
+        if (n == null) {
             throw new Error("Index cannot be null.");
         }
 

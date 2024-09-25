@@ -664,11 +664,18 @@ describe('Linked List Tests', () => {
     it('should fail to get node when n is null or n is out of bounds', () => {
         linkedList = new LinkedList(5);
 
-        const nodeToFind = new ListNode(5);
-        nodeToFind.next = new ListNode(6);
-
         expect(() => { linkedList.getNodeAtIdx(null) }).toThrow('Index cannot be null');
-        expect(() => { linkedList.getNodeAtIdx(nodeToFind) }).toThrow('Node not found.');
+        expect(() => { linkedList.getNodeAtIdx(6) }).toThrow('Node not found.');
+    });
+
+    it('should get node at index 0', () => {
+        linkedList = new LinkedList(2);
+
+        const nodeToFind = new ListNode(0);
+        nodeToFind.next = new ListNode(1);
+
+        let foundNode = linkedList.getNodeAtIdx(0);
+        expect(foundNode).toEqual(nodeToFind);
     });
 
     it('should determine if lists intersect and return the intersecting node', () => {
@@ -753,10 +760,8 @@ describe('Linked List Tests', () => {
         const l2EndNode = secondList.getNodeAtIdx(1);
         l2EndNode.next = sharedNode;
 
-        const nodeToTest = linkedList.getNodeAtIdx(2);
-
         let intersectingNode = linkedList.intersection(secondList);
-        expect(intersectingNode).toEqual(nodeToTest);
+        expect(intersectingNode).toEqual(sharedNode);
     });
  
     it('should determine if lists intersect and return the intersecting node, if input list is shorter', () => {
