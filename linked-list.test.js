@@ -774,7 +774,7 @@ describe('Linked List Tests', () => {
         linkedList.addToEnd(9)
         const l1EndNode = linkedList.getNodeAtIdx(1);
         l1EndNode.next = sharedNode;
-
+ 
         let secondList = new LinkedList();
         secondList.addToEnd(6);
         const l2EndNode = secondList.getNodeAtIdx(0);
@@ -782,5 +782,33 @@ describe('Linked List Tests', () => {
 
         let intersectingNode = linkedList.intersection(secondList);
         expect(intersectingNode).toEqual(sharedNode);
+    });
+
+    it('should detect a loop at end and return the loop node', () => {
+        linkedList = new LinkedList(5);
+
+        let loopNode = linkedList.getNodeAtIdx(3);
+        let endNode = linkedList.getNodeAtIdx(linkedList.size() - 1);
+        endNode.next = loopNode;
+
+        expect(linkedList.loopDetection()).toEqual(loopNode);
+    });
+    
+    it('should detect a loop not at end and return the loop node', () => {
+        linkedList = new LinkedList(5);
+
+        let loopNode = linkedList.getNodeAtIdx(1);
+        let attachingNode = linkedList.getNodeAtIdx(3);
+        attachingNode.next = loopNode;
+
+        expect(linkedList.loopDetection()).toEqual(loopNode);
+    });
+    
+    it('should return an error if a loop is not detected or list is null', () => {
+        expect(() => { linkedList.loopDetection() }).toThrow('List cannot be null.');
+
+        linkedList = new LinkedList(5);
+
+        expect(() => { linkedList.loopDetection() }).toThrow('List does not have a loop.');
     });
 });

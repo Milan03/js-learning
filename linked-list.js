@@ -372,7 +372,6 @@ class LinkedList {
     }
 
     getNodeAtIdx(n) {
-        console.log(`getNodeAtIdx n: ${n}`);
         if (n == null) {
             throw new Error("Index cannot be null.");
         }
@@ -448,7 +447,29 @@ class LinkedList {
     }
     
     loopDetection() {
-
+        if (!this.head) {
+            throw new Error("List cannot be null.");
+        }
+        let slow = this.head;
+        let fast = this.head;
+        let loopDetected = false;
+        while ((!loopDetected && fast && fast.next) || (loopDetected && fast)) {
+            slow = slow.next;
+            if (!loopDetected) {
+                fast = fast.next.next;
+            } else {
+                fast = fast.next;
+            }
+            if (slow === fast) {
+                if (!loopDetected) {
+                    loopDetected = true;
+                    slow = this.head;
+                } else {
+                    return slow;
+                }
+            }
+        }
+        throw new Error("List does not have a loop.");
     }
 }
 
