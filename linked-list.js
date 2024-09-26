@@ -415,10 +415,7 @@ class LinkedList {
                 current = this.head;
             }
             let offsetCount = 0;
-            console.log(`current: ${current}`);
-            console.log(`l2Node: ${l2Node}`);
             while (current || l2Node) {
-                console.log(`offsetCount: ${offsetCount}`);
                 if (this.checkNodeEqualityByRef(current, l2Node)) {
                     return current;
                 }
@@ -448,6 +445,10 @@ class LinkedList {
             }
         }
         throw new Error("Lists do not intersect.");
+    }
+    
+    loopDetection() {
+
     }
 }
 
