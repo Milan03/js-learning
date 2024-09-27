@@ -55,4 +55,18 @@ describe('Stack Tests', () => {
         stack.pop();
         expect(stack.min).toBe(3);
     });
+    
+    it('should work with letters', () => {
+        const stack = new Stack();
+        stack.push('d');
+        stack.push('c');
+        stack.push('z');
+        stack.push('m');
+
+        expect(stack.min).toBe('c');
+        stack.push('b');
+        expect(stack.min).toBe('b');
+        stack.pop();
+        expect(stack.min).toBe('c');
+    });
 });

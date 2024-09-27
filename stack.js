@@ -2,7 +2,6 @@ class Stack {
     constructor() {
         this._items = new Array();
         this._minStack = new Array();
-        this._min = null;
     }
     
     get items() {
@@ -10,32 +9,22 @@ class Stack {
     }
 
     get min() {
-        return this._min;
+        return this._minStack[this._minStack.length - 1];
     }
 
     pop() {
         if (this.isEmpty()) {
             throw new Error("Stack is empty.");
         }
-        if (this._min && this._min === this._items[this._items.length - 1] && 
-            this._minStack.length > 0) {
+        if (this.min && this.min === this._items[this._items.length - 1]) { 
             this._minStack.pop();
-            this._min = this._minStack[this._minStack.length - 1];
         }
         return this._items.pop();
     }
 
     push(item) {
-        if (this.isEmpty()) {
-            if (typeof item === 'number' && !isNaN(item)) {
-                this._minStack.push(item);
-                this._min = item;
-            }
-        } else {
-            if (typeof item === 'number' && !isNaN(item) && item < this._min) {
-                this._minStack.push(item);
-                this._min = item;
-            }
+        if (this.min == null || item < this.min) {
+            this._minStack.push(item);
         }
         this._items.push(item);
     }
