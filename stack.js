@@ -20,7 +20,7 @@ class Stack {
         if (this._min && this._min === this._items[this._items.length - 1] && 
             this._minStack.length > 0) {
             this._minStack.pop();
-            this._min = this._minStack[this._minStack - 1];
+            this._min = this._minStack[this._minStack.length - 1];
         }
         return this._items.pop();
     }

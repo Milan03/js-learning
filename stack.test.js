@@ -42,4 +42,17 @@ describe('Stack Tests', () => {
 
         expect(stack.isEmpty()).toEqual(false);
     });
+    
+    it('should get and keep track of min item', () => {
+        const stack = new Stack();
+        stack.push(5);
+        stack.push(3);
+        stack.push(7);
+
+        expect(stack.min).toBe(3);
+        stack.push(2);
+        expect(stack.min).toBe(2)
+        stack.pop();
+        expect(stack.min).toBe(3);
+    });
 });
