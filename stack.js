@@ -11,7 +11,7 @@ class Stack {
         if (this.isEmpty()) {
             throw new Error("Stack is empty.");
         }
-        this._items.pop();
+        return this._items.pop();
     }
 
     push(item) {

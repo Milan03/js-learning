@@ -19,17 +19,19 @@ describe('Stack Tests', () => {
         expect(stack.peek()).toEqual(2);
     });
     
-    it('should pop an item from the top of the stack', () => {
+    it('should pop an item from the top of the stack and return the item', () => {
         const stack = new Stack();
         expect(() => { stack.pop() }).toThrow('Stack is empty.');
 
         stack.push(1);
         stack.push(2);
         stack.push(3);
-        stack.pop();
+        const poppedItem = stack.pop();
 
         expect(stack.items).toHaveLength(2);
         expect(stack.peek()).toEqual(2);
+        expect(poppedItem).toBeDefined();
+        expect(poppedItem).toBe(3);
     });
 
     it('should return true if stack is empty and false if not', () => {
