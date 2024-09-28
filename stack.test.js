@@ -1,4 +1,5 @@
 const { Stack } = require('./stack');
+const { StackPartition } = require('./stack-partition');
 
 describe('Stack Tests', () => {
     it('should push an item onto the stack', () => {
