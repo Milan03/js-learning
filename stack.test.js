@@ -71,3 +71,46 @@ describe('Stack Tests', () => {
         expect(stack.min).toBe('c');
     });
 });
+
+describe('Stack Partition Tests', () => {
+    function addItemsToStack(stack, amt) {
+        for (let i = 0; i < amt; ++i) {
+            stack.push(i);
+        }
+    }
+
+    it('should initiate the initial indicies and tops', () => {
+        const stack = new StackPartition();
+        stack.push(1);
+
+        expect(stack.stackOneStart).toBe(0);
+        expect(stack.stackTwoStart).toBe(5);
+        expect(stack.stackThreeStart).toBe(10);
+        expect(stack.stackOneEnd).toBe(4);
+        expect(stack.stackTwoEnd).toBe(9);
+        expect(stack.stackThreeEnd).toBe(14);
+        expect(stack.stackOneTop).toBe(0);
+        expect(stack.stackTwoTop).toBe(4);
+        expect(stack.stackThreeTop).toBe(9);
+    });
+
+    it('should push to partitions correctly', () => {
+        const stack = new StackPartition();
+        stack.push(1);
+        stack.push(2);
+
+        expect(stack.stackOneTop).toBe(1);
+        stack.push(3);
+        expect(stack.stackOneTop).toBe(2);
+        addItemsToStack(stack, 5);
+        expect(stack.stackOneTop).toBe(4);
+        expect(stack.stackTwoTop).toBe(7);
+        addItemsToStack(stack, 5);
+        expect(stack.stackTwoTop).toBe(9);
+        expect(stack.stackThreeTop).toBe(12);
+        addItemsToStack(stack, 5);
+        expect(stack.stackOneTop).toBe(5);
+        expect(stack.stackTwoTop).toBe(10);
+        expect(stack.stackThreeTop).toBe(15);
+    });
+});
