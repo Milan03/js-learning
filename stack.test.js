@@ -113,4 +113,13 @@ describe('Stack Partition Tests', () => {
         expect(stack.stackTwoTop).toBe(10);
         expect(stack.stackThreeTop).toBe(15);
     });
+
+    it('should pop correctly', () => {
+        const stack = new StackPartition();       
+        addItemsToStack(stack, 18);
+
+        expect(stack.stackOneTop).toBe(5);
+        expect(stack.stackTwoTop).toBe(10);
+        expect(stack.stackThreeTop).toBe(15);
+    });
 });

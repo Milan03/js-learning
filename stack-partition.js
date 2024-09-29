@@ -11,9 +11,9 @@ class StackPartition {
         this._stackThreeStart;
         this._stackThreeEnd;
 
-        this._stackOneTop;
-        this._stackTwoTop;
-        this._stackThreeTop;
+        this._stackOneTops = [];
+        this._stackTwoTops = [];
+        this._stackThreeTops = [];
     }
     
     get items() {
@@ -49,15 +49,27 @@ class StackPartition {
     }
 
     get stackOneTop() {
-        return this._stackOneTop;
+        return this._stackOneTops[this._stackOneTops.length - 1];
     }
 
     get stackTwoTop() {
-        return this._stackTwoTop;
+        return this._stackTwoTops[this._stackTwoTops.length - 1];
     }
 
     get stackThreeTop() {
-        return this._stackThreeTop;
+        return this._stackThreeTops[this._stackThreeTops.length - 1];
+    }
+
+    set stackOneTop(val) {
+        this._stackOneTops[this._stackOneTops.length - 1] = val;
+    }
+
+    set stackTwoTop(val) {
+        this._stackTwoTops[this._stackTwoTops.length - 1] = val;
+    }
+
+    set stackThreeTop(val) {
+        this._stackThreeTops[this._stackThreeTops.length - 1] = val;
     }
 
     pop() {
@@ -82,16 +94,16 @@ class StackPartition {
             this._stackThreeStart = 10;
             this._stackThreeEnd = 14;
 
-            this._stackOneTop = 0;
-            this._stackTwoTop = 4;
-            this._stackThreeTop = 9;
+            this._stackOneTops.push(0);
+            this._stackTwoTops.push(4);
+            this._stackThreeTops.push(9);
         } else {
-            if (this._stackOneTop < this._stackOneEnd) {
-                ++this._stackOneTop;
-            } else if (this._stackTwoTop < this._stackTwoEnd) {
-                ++this._stackTwoTop;
-            } else if (this._stackThreeTop < this._stackThreeEnd) {
-                ++this._stackThreeTop;
+            if (this.stackOneTop < this._stackOneEnd) {
+                this._stackOneTops.push(++this.stackOneTop);
+            } else if (this.stackTwoTop < this._stackTwoEnd) {
+                this._stackTwoTops.push(++this.stackTwoTop);
+            } else if (this.stackThreeTop < this._stackThreeEnd) {
+                this._stackThreeTops.push(++this.stackThreeTop);
             } else { // max fixed length reached, expand partitions
                 ++this._stackOneEnd;
                 ++this._stackTwoStart;
@@ -100,15 +112,15 @@ class StackPartition {
                 ++this._stackThreeEnd;
 
                 // After expanding, only increment the relevant top pointer
-                if (this._stackOneTop === this._stackOneEnd - 1) {
-                    console.log(`${this._stackOneTop} === ${this._stackOneEnd - 1}`);
-                    ++this._stackOneTop;
-                } else if (this._stackTwoTop === this._stackTwoEnd - 1) {
-                    console.log(`${this._stackTwoTop} === ${this._stackTwoEnd - 1}`);
-                    ++this._stackTwoTop;
-                } else if (this._stackThreeTop === this._stackThreeEnd - 1) {
-                    console.log(`${this._stackThreeTop} === ${this._stackThreeEnd - 1}`);
-                    ++this._stackThreeTop;
+                if (this.stackOneTop === this._stackOneEnd - 1) {
+                    console.log(`${this.stackOneTop} === ${this._stackOneEnd - 1}`);
+                    this._stackOneTops.push(++this.stackOneTop);
+                } else if (this.stackTwoTop === this._stackTwoEnd - 1) {
+                    console.log(`${this.stackTwoTop} === ${this._stackTwoEnd - 1}`);
+                    this._stackTwoTops.push(++this.stackTwoTop);
+                } else if (this.stackThreeTop === this._stackThreeEnd - 1) {
+                    console.log(`${this.stackThreeTop} === ${this._stackThreeEnd - 1}`);
+                    this._stackThreeTops.push(++this.stackThreeTop);
                 }
             }
         }
