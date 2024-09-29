@@ -79,6 +79,12 @@ describe('Stack Partition Tests', () => {
         }
     }
 
+    function popItemsFromStack(stack, amt) {
+        for (let i = 0; i < amt; ++i) {
+            stack.pop();
+        }
+    }
+
     it('should initiate the initial indicies and tops', () => {
         const stack = new StackPartition();
         stack.push(1);
@@ -123,5 +129,11 @@ describe('Stack Partition Tests', () => {
         expect(stack.stackThreeTop).toBe(15);
         stack.pop();
         expect(stack.stackThreeTop).toBe(14);
+        popItemsFromStack(stack, 5);
+        expect(stack.stackThreeTop).toBe(stack.stackThreeStart);
+        expect(stack.stackTwoTop).toBe(8);
+        popItemsFromStack(stack, 5);
+        expect(stack.stackTwoTop).toBe(stack.stackTwoStart);
+        expect(stack.stackOneTop).toBe(3);
     });
 });
