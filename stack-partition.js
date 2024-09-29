@@ -67,25 +67,13 @@ class StackPartition {
         if (this.min && this.min === this._items[this._items.length - 1]) { 
             this._minStack.pop();
         }
-        console.log(`1. ${this._stackOneTop} = ${this._stackOneEnd}`);
-        console.log(`2. ${this._stackTwoTop} = ${this._stackTwoEnd}`);
-        console.log(`3. ${this._stackThreeTop} = ${this._stackThreeEnd}`);
-        if (this._stackThreeTop >= this._stackThreeStart) {
-            if (this._stackThreeTop != this._stackThreeStart) {
-                --this._stackThreeTop;
-            } else {
-                --this._stackTwoTop;
-            }
-        } else if (this._stackTwoTop >= this._stackTwoStart) {
-            if (this._stackTwoTop != this._stackTwoStart) {
-                --this._stackTwoTop;
-            } else {
-                --this._stackOneTop;
-            }
+        if (this._stackThreeTop > this._stackThreeStart) {
+            --this._stackThreeTop;
+        } else if (this._stackTwoTop > this._stackTwoStart) {
+            --this._stackTwoTop;
+        } else if (this._stackOneTop > this._stackOneStart) {
+            --this._stackOneTop;
         } else {
-            if (this._stackOneTop != this._stackOneStart) {
-                --this._stackOneTop;
-            }
             throw new Error("At bottom of stacks.");
         }
         return this._items.pop();

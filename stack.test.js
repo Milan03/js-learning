@@ -134,6 +134,6 @@ describe('Stack Partition Tests', () => {
         expect(stack.stackTwoTop).toBe(8);
         popItemsFromStack(stack, 5);
         expect(stack.stackTwoTop).toBe(stack.stackTwoStart);
-        expect(stack.stackOneTop).toBe(3);
+        expect(stack.stackOneTop).toBe(2);
     });
 });
