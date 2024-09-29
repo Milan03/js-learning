@@ -121,5 +121,7 @@ describe('Stack Partition Tests', () => {
         expect(stack.stackOneTop).toBe(5);
         expect(stack.stackTwoTop).toBe(10);
         expect(stack.stackThreeTop).toBe(15);
+        stack.pop();
+        expect(stack.stackThreeTop).toBe(14);
     });
 });
