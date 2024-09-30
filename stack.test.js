@@ -135,5 +135,8 @@ describe('Stack Partition Tests', () => {
         popItemsFromStack(stack, 5);
         expect(stack.stackTwoTop).toBe(stack.stackTwoStart);
         expect(stack.stackOneTop).toBe(2);
+        popItemsFromStack(stack, 2);
+        expect(stack.stackOneTop).toBe(0);
+        expect(() => { stack.pop() }).toThrow('At bottom of stacks.');
     });
 });
