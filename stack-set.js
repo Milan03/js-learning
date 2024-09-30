@@ -21,13 +21,29 @@ class StackSet {
     //}
 
     pop() {
-        if (this.isEmpty()) {
-            throw new Error("Stack is empty.");
-        }
+        // if (this.isEmpty()) {
+        //     throw new Error("Stack is empty.");
+        // }
         //if (this.min && this.min === this._items[this._items.length - 1]) { 
         //    this._minStack.pop();
         //}
-        return this._items.pop();
+        let poppedItem;
+        let targetStack;
+        for (let stack of this._stackSet) {
+            targetStack = stack; // get last stack
+        }
+        if (targetStack) {
+            this._stackSet.delete(targetStack);
+            poppedItem = targetStack.pop();
+            if (targetStack.length > 0) {
+                this._stackSet.add(targetStack);
+                this._stackThresholdCount = targetStack.length;
+            } else {
+                this._stackThresholdCount = this._stackThreshold;
+            }
+            return poppedItem;
+        }
+        throw new Error("Stack is empty.");
     }
 
     push(item) {

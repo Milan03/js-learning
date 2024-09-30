@@ -159,10 +159,40 @@ describe('Stack Set Tests', () => {
         const stack = new StackSet();
         addItemsToStack(stack, 5);
 
+        let firstStack = stack.stackSet.values().next().value;
+        expect(firstStack).toHaveLength(5);
         expect(stack.stackSet.size).toBe(1);
         addItemsToStack(stack, 5);
+        let secondStack = stack.stackSet.values().next().value;
+        expect(secondStack).toHaveLength(5);
         expect(stack.stackSet.size).toBe(2);
         addItemsToStack(stack, 10);
+        let thirdStack = stack.stackSet.values().next().value;
+        expect(thirdStack).toHaveLength(5);
+        let fourthStack = stack.stackSet.values().next().value;
+        expect(fourthStack).toHaveLength(5);
         expect(stack.stackSet.size).toBe(4);
+        addItemsToStack(stack, 2);
+        expect(stack.stackSet.size).toBe(5);
+        let fifthStack = stack.stackSet.values().next().value;
+        expect(fifthStack).toHaveLength(2);
+    });
+
+    it('should pop correctly', () => {
+        const stack = new StackSet();
+        addItemsToStack(stack, 5);
+
+        const stackIterator = stack.stackSet.values();
+        let firstStack = stackIterator.next().value;
+        console.log(`firstStack: ${firstStack}`);
+        expect(firstStack).toHaveLength(5);
+        let poppedItem = stack.pop();
+        expect(firstStack).toHaveLength(4);
+        expect(poppedItem).toBe(4);
+        addItemsToStack(stack, 2);
+        expect(firstStack).toHaveLength(5);
+        let secondStack = stackIterator.next().value;
+        expect(secondStack).toHaveLength(1);
+        expect(stack.size).toBe(2);
     });
 });
