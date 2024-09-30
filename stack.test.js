@@ -1,5 +1,6 @@
 const { Stack } = require('./stack');
 const { StackPartition } = require('./stack-partition');
+const { StackSet } = require('./stack-set');
 
 describe('Stack Tests', () => {
     it('should push an item onto the stack', () => {
@@ -138,5 +139,23 @@ describe('Stack Partition Tests', () => {
         popItemsFromStack(stack, 2);
         expect(stack.stackOneTop).toBe(0);
         expect(() => { stack.pop() }).toThrow('At bottom of stacks.');
+    });
+});
+
+describe('Stack Set Tests', () => {
+    function addItemsToStack(stack, amt) {
+        for (let i = 0; i < amt; ++i) {
+            stack.push(i);
+        }
+    }
+
+    function popItemsFromStack(stack, amt) {
+        for (let i = 0; i < amt; ++i) {
+            stack.pop();
+        }
+    }
+
+    it('should push up to 5 items per stack', () => {
+        
     });
 });
