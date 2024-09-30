@@ -156,6 +156,13 @@ describe('Stack Set Tests', () => {
     }
 
     it('should push up to 5 items per stack', () => {
-        
+        const stack = new StackSet();
+        addItemsToStack(stack, 5);
+
+        expect(stack.stackSet.size).toBe(1);
+        addItemsToStack(stack, 5);
+        expect(stack.stackSet.size).toBe(2);
+        addItemsToStack(stack, 10);
+        expect(stack.stackSet.size).toBe(4);
     });
 });

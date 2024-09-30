@@ -12,9 +12,13 @@ class StackSet {
         return this._items;
     }
 
-    get min() {
-        return this._minStack[this._minStack.length - 1];
+    get stackSet() {
+        return this._stackSet;
     }
+
+    //get min() {
+    //    return this._minStack[this._minStack.length - 1];
+    //}
 
     pop() {
         if (this.isEmpty()) {
