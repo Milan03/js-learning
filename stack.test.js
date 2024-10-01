@@ -224,4 +224,9 @@ describe('Stack Set Tests', () => {
         expect(secondStack).toHaveLength(1);
         expect(stack.stackSet.size).toBe(2);
     });
+
+    it('should throw an error if trying to pop from an empty stack', () => {
+        const stack = new StackSet();
+        expect(() => { stack.pop() }).toThrow('Stack is empty.');
+    });
 });
