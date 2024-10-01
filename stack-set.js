@@ -20,6 +20,19 @@ class StackSet {
     //    return this._minStack[this._minStack.length - 1];
     //}
 
+    popAtIdx(idx) {
+        let stackCount = 1;
+        let stackNumber = idx / this._stackThreshold;
+        let atIdxInStack = (idx % this._stackThreshold) - 1;
+        for (let stack of this._stackSet) {
+            if (stackNumber === stackCount) {
+                return stack.splice(atIdxInStack, 1);
+            }
+            ++stackCount;
+        }
+        throw new Error("Index out of bounds.");
+    }
+
     pop() {
         // if (this.isEmpty()) {
         //     throw new Error("Stack is empty.");
