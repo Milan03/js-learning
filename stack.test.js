@@ -1,6 +1,7 @@
 const { Stack } = require('./stack');
 const { StackPartition } = require('./stack-partition');
 const { StackSet } = require('./stack-set');
+const { StackQueue } = require('./stack-queue');
 
 describe('Stack Tests', () => {
     it('should push an item onto the stack', () => {
@@ -248,5 +249,20 @@ describe('Stack Set Tests', () => {
         const stack = new StackSet();
         addItemsToStack(7);
         expect(() => { stack.popAtIdx(10) }).toThrow('Index out of bounds.');
+    });
+});
+
+describe('Stack Queue Tests', () => {
+    it('should pop and return the newest item in the stack', () => {
+        const stack = new StackQueue();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        let poppedItem = stack.pop();
+        expect(poppedItem).toBe(1);
+        expect(stack.items).toHaveLength(2);
+        expect(stack.items[0]).toBe(2);
+        expect(stack.items[1]).toBe(3);
     });
 });
