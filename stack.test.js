@@ -229,4 +229,19 @@ describe('Stack Set Tests', () => {
         const stack = new StackSet();
         expect(() => { stack.pop() }).toThrow('Stack is empty.');
     });
+
+    it('should pop at specified index', () => {
+        const stack = new StackSet();
+        addItemsToStack(stack, 15);
+
+        let poppedItem = stack.popAtIdx(3);
+        let firstStack = retrieveStack(stack.stackSet, 0);
+        expect(firstStack).toHaveLength(4);
+        expect(poppedItem).toBe(3);
+        stack.push(3);
+        firstStack = retrieveStack(stack.stackSet, 2);
+        console.log(`firstStack ${firstStack}`);
+        expect(firstStack).toHaveLength(5);
+        expect(firstStack[firstStack.length - 1]).toBe(3);
+    });
 });

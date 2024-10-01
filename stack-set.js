@@ -22,11 +22,13 @@ class StackSet {
 
     popAtIdx(idx) {
         let stackCount = 1;
-        let stackNumber = idx / this._stackThreshold;
-        let atIdxInStack = (idx % this._stackThreshold) - 1;
+        let stackNumber = Math.floor(this._stackThreshold / idx);
+        let atIdxInStack = idx % this._stackThreshold;
         for (let stack of this._stackSet) {
             if (stackNumber === stackCount) {
-                return stack.splice(atIdxInStack, 1);
+                this._stackThresholdCount = stack.length - 1; 
+                const removedItem = stack.splice(atIdxInStack, 1);
+                return removedItem[0]; // Return the removed item
             }
             ++stackCount;
         }
