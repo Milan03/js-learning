@@ -189,14 +189,24 @@ describe('Stack Set Tests', () => {
     });
 
     it('should pop correctly', () => {
-        const stack = new StackSet();
+        let stack = new StackSet();
         addItemsToStack(stack, 5);
-
+        
+        // one pop
         let firstStack = retrieveStack(stack.stackSet, 0);
         expect(firstStack).toHaveLength(5);
         let poppedItem = stack.pop();
         expect(firstStack).toHaveLength(4);
         expect(poppedItem).toBe(4);
+        // multiple pops
+        stack = new StackSet();
+        addItemsToStack(stack, 15);
+        popItemsFromStack(stack, 7);
+        firstStack = retrieveStack(stack.stackSet, 0);
+        let secondStack = retrieveStack(stack.stackSet, 1);
+        expect(stack.stackSet.size).toBe(2);
+        expect(firstStack).toHaveLength(5);
+        expect(secondStack).toHaveLength(3);
     });
 
     it('should pop and push correctly', () => {
