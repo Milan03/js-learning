@@ -18,7 +18,7 @@ class StackQueue {
     }
 
     pop() {
-        if (this._items.length === 0 && this._tempStack.length === 0) {
+        if (this.isEmpty()) {
             throw new Error("Stack is empty.");
         }
         if (this.min && this.min === this._items[this._items.length - 1]) { 
@@ -47,11 +47,12 @@ class StackQueue {
         if (this.isEmpty()) {
             throw new Error("Stack is empty.");
         }
-        return this._items[this._items.length - 1];
+        return (this._items.length > 0) ? this._items[this._items.length - 1] : 
+            this._tempStack[this._tempStack.length - 1];
     }
 
     isEmpty() {
-        return this._items.length === 0;
+        return (this._items.length === 0 && this._tempStack.length === 0) ? true : false;
     }
 }
 
