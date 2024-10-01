@@ -240,8 +240,13 @@ describe('Stack Set Tests', () => {
         expect(poppedItem).toBe(3);
         stack.push(3);
         firstStack = retrieveStack(stack.stackSet, 2);
-        console.log(`firstStack ${firstStack}`);
         expect(firstStack).toHaveLength(5);
         expect(firstStack[firstStack.length - 1]).toBe(3);
+    });
+    
+    it('should throw an error if trying to pop at index that is out of bounds', () => {
+        const stack = new StackSet();
+        addItemsToStack(7);
+        expect(() => { stack.popAtIdx(10) }).toThrow('Index out of bounds.');
     });
 });
