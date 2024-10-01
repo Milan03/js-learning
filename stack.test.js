@@ -253,7 +253,7 @@ describe('Stack Set Tests', () => {
 });
 
 describe('Stack Queue Tests', () => {
-    it('should pop and return the newest item in the stack', () => {
+    it('should pop and return the oldest item in the stack', () => {
         const stack = new StackQueue();
         stack.push(1);
         stack.push(2);
@@ -261,8 +261,24 @@ describe('Stack Queue Tests', () => {
 
         let poppedItem = stack.pop();
         expect(poppedItem).toBe(1);
-        expect(stack.items).toHaveLength(2);
-        expect(stack.items[0]).toBe(2);
-        expect(stack.items[1]).toBe(3);
+        expect(stack.tempStack).toHaveLength(2);
+        expect(stack.tempStack[0]).toBe(3);
+        expect(stack.tempStack[1]).toBe(2);
+        poppedItem = stack.pop();
+        expect(stack.tempStack).toHaveLength(1);
+        expect(poppedItem).toBe(2);
+        expect(stack.tempStack[0]).toBe(3);
+    });
+    
+    it('should push correctly to items after a pop', () => {
+        const stack = new StackQueue();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.pop();
+        stack.push(4);
+
+        expect(stack.items).toHaveLength(3);
+        expect(stack.items[stack.items.length - 1]).toBe(4);
     });
 });

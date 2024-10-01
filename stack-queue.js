@@ -13,26 +13,32 @@ class StackQueue {
         return this._minStack[this._minStack.length - 1];
     }
 
+    get tempStack() {
+        return this._tempStack;
+    }
+
     pop() {
-        if (this.isEmpty()) {
+        if (this._items.length === 0 && this._tempStack.length === 0) {
             throw new Error("Stack is empty.");
         }
         if (this.min && this.min === this._items[this._items.length - 1]) { 
             this._minStack.pop();
         }
+        if (this._tempStack.length > 0) {
+            return this._tempStack.pop();
+        }
         while (this._items.length > 1) {
             this._tempStack.push(this._items.pop());
         }
-        const newestItem = this._items.pop();
-        while (this._tempStack.length != 0) {
-            this._items.push(this._tempStack.pop());
-        }
-        return newestItem;
+        return this._items.pop();
     }
 
     push(item) {
         if (this.min == null || item < this.min) {
             this._minStack.push(item);
+        }
+        while (this._tempStack.length != 0) {
+            this._items.push(this._tempStack.pop());
         }
         this._items.push(item);
     }
