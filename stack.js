@@ -2,6 +2,7 @@ class Stack {
     constructor() {
         this._items = new Array();
         this._minStack = new Array();
+        this._tempStack = new Array();
     }
     
     get items() {
@@ -38,6 +39,18 @@ class Stack {
 
     isEmpty() {
         return this._items.length === 0;
+    }
+
+    sort() {
+        while (this._items.length > 0) {
+            let currentItem = this._items.pop();
+            let tempPopped = this._tempStack.pop();
+            if (tempPopped && currentItem < tempPopped) {
+                this._tempStack.push(currentItem);
+            } else if (tempPopped && currentItem > tempPopped) {
+
+            }
+        }
     }
 }
 
