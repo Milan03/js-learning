@@ -45,11 +45,21 @@ class Stack {
         while (this._items.length > 0) {
             let currentItem = this._items.pop();
             let tempPopped = this._tempStack.pop();
-            if (tempPopped && currentItem < tempPopped) {
+            if (currentItem > tempPopped) {
                 this._tempStack.push(currentItem);
-            } else if (tempPopped && currentItem > tempPopped) {
-
+            } else if (tempPopped && currentItem < tempPopped) {
+                this._items.push(tempPopped);
+                while (this._tempStack.length > 0) {
+                    if (this._tempStack[this._tempStack.length - 1] > currentItem) {
+                        this._items.push(this._tempStack.pop());
+                    } else {
+                        this._tempStack.push(currentItem);
+                    }
+                }
             }
+        }
+        while (this._tempStack.length > 0) {
+            this._items.push(this._tempStack.pop());
         }
     }
 }
