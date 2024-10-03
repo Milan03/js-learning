@@ -44,25 +44,11 @@ class Stack {
     sort() {
         while (this._items.length > 0) {
             let currentItem = this._items.pop();
-            if (this._tempStack.length === 0) {
-                this._tempStack.push(currentItem);
-            } else {
-                let itemsPushedBackToOriginal = 0;
-                while (this._tempStack.length > 0) {
-                    let tempPopped = this._tempStack.pop();
-                    if (tempPopped > currentItem) {
-                        ++itemsPushedBackToOriginal;
-                        this._items.push(tempPopped);
-                    } else {
-                        this._tempStack.push(tempPopped);
-                        break;
-                    }
-                }
-                this._tempStack.push(currentItem);
-                for (let i = 0; i < itemsPushedBackToOriginal; ++i) {
-                    this._tempStack.push(this._items.pop());
-                }
+            while (this._tempStack.length > 0 &&
+                this._tempStack[this._tempStack.length - 1] > currentItem) {
+                this._items.push(this._tempStack.pop());
             }
+            this._tempStack.push(currentItem);
         }
         while (this._tempStack.length > 0) {
             this._items.push(this._tempStack.pop());
