@@ -72,6 +72,18 @@ describe('Stack Tests', () => {
         stack.pop();
         expect(stack.min).toBe('c');
     });
+
+    it('should sort the stack with min on top', () => {
+        const stack = new Stack();
+        stack.push(5);
+        stack.push(3);
+        stack.push(7);
+
+        stack.sort();
+        expect(stack.items[0]).toBe(7);
+        expect(stack.items[1]).toBe(5);
+        expect(stack.items[2]).toBe(3);
+    });
 });
 
 describe('Stack Partition Tests', () => {
