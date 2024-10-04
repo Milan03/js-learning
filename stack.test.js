@@ -297,5 +297,85 @@ describe('Stack Queue Tests', () => {
 });
 
 describe('Stack Animal Shelter Tests', () => {
+    it('should enqueue animals based on type', () => {
+        const animalShelter = new StackAnimalShelter();
+        animalShelter.enqueue('d', 'Bear');
+        animalShelter.enqueue('c', 'Mikki');
+
+        expect(() => { animalShelter.enqueue('p', 'Monty') })
+            .toThrow('Animal type not supported.');
+        expect(animalShelter.dogQueue).toHaveLength(1);
+        expect(animalShelter.dogQueue[0].name).toEqual('Bear');
+        expect(animalShelter.dogQueue[0].order).toEqual(1);
+        expect(animalShelter.catQueue).toHaveLength(1);
+        expect(animalShelter.catQueue[0].name).toEqual('Mikki');
+        expect(animalShelter.catQueue[0].order).toEqual(2);
+    });
     
-})
+    it('should dequeue the oldest animal from either the dog or cat queue', () => {
+        const animalShelter = new StackAnimalShelter();
+        expect(() => { animalShelter.dequeueAny() }).toThrow('Animal shelter is empty.');
+        animalShelter.enqueue('d', 'Bear');
+        animalShelter.enqueue('d', 'Sam');
+        animalShelter.enqueue('d', 'Skipper');
+        animalShelter.enqueue('c', 'Sally');
+        animalShelter.enqueue('c', 'Tiggs');
+        animalShelter.enqueue('c', 'Fin');
+
+        const releasedAnimal = animalShelter.dequeueAny();
+        expect(releasedAnimal).toBeDefined();
+        expect(animalShelter.dogQueue.length === 2).toBe(true);
+        expect(releasedAnimal.name === 'Bear').toBe(true);
+    });
+
+    it('should dequeue any from dog shelter when no cats present', () => {
+        const animalShelter = new StackAnimalShelter();
+        animalShelter.enqueue('d', 'Bear');
+
+        const releasedAnimal = animalShelter.dequeueAny();
+        expect(releasedAnimal).toBeDefined();
+        expect(animalShelter.dogQueue.length === 0).toBe(true);
+        expect(releasedAnimal.name === 'Bear').toBe(true);
+    });
+
+    it('should dequeue any from cat shelter when no dogs present', () => {
+        const animalShelter = new StackAnimalShelter();
+        animalShelter.enqueue('c', 'Mik');
+
+        const releasedAnimal = animalShelter.dequeueAny();
+        expect(releasedAnimal).toBeDefined();
+        expect(animalShelter.catQueue.length === 0).toBe(true);
+        expect(releasedAnimal.name === 'Mik').toBe(true);
+    });
+
+
+    it('should dequeue from dog queue', () => {
+        const animalShelter = new StackAnimalShelter();
+        expect(() => { animalShelter.dequeueDog() }).
+            toThrow('There are currently no dogs up for adoption.');
+        animalShelter.enqueue('d', 'Bear');
+        animalShelter.enqueue('d', 'Max');
+        animalShelter.enqueue('d', 'Chester');
+
+        const releasedAnimal = animalShelter.dequeueDog();
+        expect(releasedAnimal).toBeDefined();
+        expect(releasedAnimal.name).toEqual('Bear');
+        expect(releasedAnimal.order).toEqual(1);
+        expect(animalShelter.dogQueue).toHaveLength(2);
+    });
+
+    it('should dequeue from cat queue', () => {
+        const animalShelter = new StackAnimalShelter();
+        expect(() => { animalShelter.dequeueCat() }).
+            toThrow('There are currently no cats up for adoption.');
+        animalShelter.enqueue('c', 'Mik');
+        animalShelter.enqueue('c', 'Max');
+        animalShelter.enqueue('c', 'Chester');
+
+        const releasedAnimal = animalShelter.dequeueCat();
+        expect(releasedAnimal).toBeDefined();
+        expect(releasedAnimal.name).toEqual('Mik');
+        expect(releasedAnimal.order).toEqual(1);
+        expect(animalShelter.catQueue).toHaveLength(2);
+    });
+});
