@@ -2,6 +2,7 @@ const { Stack } = require('./stack');
 const { StackPartition } = require('./stack-partition');
 const { StackSet } = require('./stack-set');
 const { StackQueue } = require('./stack-queue');
+const { StackAnimalShelter } = require('./stack-animal-shelter');
 
 describe('Stack Tests', () => {
     it('should push an item onto the stack', () => {
@@ -294,3 +295,7 @@ describe('Stack Queue Tests', () => {
         expect(stack.items[stack.items.length - 1]).toBe(4);
     });
 });
+
+describe('Stack Animal Shelter Tests', () => {
+    
+})
