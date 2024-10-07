@@ -14,6 +14,10 @@ class TreesGraphs {
         this._graph = {};  // Object to store nodes and their connections    
     }
 
+    get graph() {
+        return this._graph;
+    }
+
     addNode(node) {
         if (!this._graph[node.data]) {
             this._graph[node.data] = node;
@@ -31,4 +35,4 @@ class TreesGraphs {
     }
 }
 
-module.exportsuuuuu = { TreesGraphs };
+module.exports = { TreesGraphs, Node };
