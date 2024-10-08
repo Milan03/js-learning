@@ -22,4 +22,20 @@ describe('Tress and Graphs Tests', () => {
         expect(treesGraphs.graph['A'].neighbors).toHaveLength(1);
         expect(treesGraphs.graph['A'].neighbors[0].data).toEqual('B');
     });
+
+    it('should check if there is a route between two nodes using BFS', () => {
+        const treesGraphs = new TreesGraphs();
+        let newNode = new Node('A');
+        let newNode2 = new Node('B');
+        let newNode3 = new Node('C');
+        treesGraphs.addNode(newNode);
+        treesGraphs.addNode(newNode2);
+        treesGraphs.addNode(newNode3);
+        treesGraphs.addEdge(newNode, newNode2);
+
+        expect(treesGraphs.routeBetweenNodes(newNode, newNode2)).toBe(true);
+        expect(treesGraphs.routeBetweenNodes(newNode2, newNode3)).toBe(false);
+        treesGraphs.addEdge(newNode2, newNode3);
+        expect(treesGraphs.routeBetweenNodes(newNode2, newNode3)).toBe(true);
+    });
 });

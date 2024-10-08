@@ -35,7 +35,7 @@ class TreesGraphs {
         let visited = new Set();
 
         queue.push(start);
-        visited.push(start);
+        visited.add(start);
 
         while (queue.length > 0) {
             let dequeue = queue.shift();
@@ -44,9 +44,9 @@ class TreesGraphs {
             }
             for (let i = 0; i < dequeue.neighbors.length; ++i) {
                 let current = dequeue.neighbors[i];
-                let isVisited = visited.find((x) => x === current);
+                let isVisited = visited.has(current);
                 if (!isVisited) {
-                    visited.push(current);
+                    visited.add(current);
                     queue.push(current);
                 }
             }    
