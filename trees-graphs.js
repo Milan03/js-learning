@@ -31,7 +31,27 @@ class TreesGraphs {
     }
 
     routeBetweenNodes(start, target) {
-        
+        let queue = new Array();
+        let visited = new Set();
+
+        queue.push(start);
+        visited.push(start);
+
+        while (queue.length > 0) {
+            let dequeue = queue.shift();
+            if (dequeue === target) {
+                return true;
+            }
+            for (let i = 0; i < dequeue.neighbors.length; ++i) {
+                let current = dequeue.neighbors[i];
+                let isVisited = visited.find((x) => x === current);
+                if (!isVisited) {
+                    visited.push(current);
+                    queue.push(current);
+                }
+            }    
+        }
+        return false;
     }
 }
 
