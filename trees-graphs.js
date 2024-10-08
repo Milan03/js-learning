@@ -30,7 +30,7 @@ class TreesGraphs {
         } 
     }
 
-    routeBetweenNodes(start, target) {
+    routeBetweenNodesBFS(start, target) {
         let queue = new Array();
         let visited = new Set();
 
@@ -50,6 +50,25 @@ class TreesGraphs {
                     queue.push(current);
                 }
             }    
+        }
+        return false;
+    }
+
+    routeBetweenNodesDFS(node, target, visited) {
+        if (!visited) {
+            visited = new Set();
+        }
+
+        if (node === target) {
+            return true;
+        }
+        visited.add(node);
+        for (let i = 0; i < node.neighbors.length; ++i) {
+            let current = node.neighbors[i];
+            let isVisited = visited.has(current);
+            if (!isVisited) {
+                return this.routeBetweenNodesDFS(current, target, visited);
+            }
         }
         return false;
     }
