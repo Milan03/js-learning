@@ -4,6 +4,15 @@ class TreeNode {
         this._left = [];
         this._right = [];
     }
+    get value() {
+        return this._value;
+    }
+    get left() {
+        return this._left;
+    }
+    get right() {
+        return this._right;
+    }
 }
 
 class Tree {
