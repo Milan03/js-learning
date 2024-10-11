@@ -8,6 +8,7 @@ const calc = function(expression) {
     for (let i = 0; i < expression.length; ++i) {
         let char = expression[i];
         if (inBracketSeq || char === '(') {
+            let startingIdx = i;
             inBracketSeq = true;
             if (isNumberOrDecimal(char)) {
                 constructedNum += char;
@@ -16,9 +17,16 @@ const calc = function(expression) {
                     operandStack.push(+constructedNum);
                     constructedNum = '';
                 }
-            } // TODO: continue if operator etc.
+            } else if (isOperator(char)) {
+                operatorStack.push(char);
+            } else if (char === ')') {
+                let operandOne = operandStack.pop();
+                let operandTwo = operandStack.pop();
+                let operator = operatorStack.pop();
+            }
         }
 
+        // maybe do a second loop after bracket evaluations
         if (isNumberOrDecimal(char)) {
             constructedNum += char;
             let next = expression[i + 1];
@@ -40,4 +48,24 @@ const isOperator = function(char) {
     return /^[+\-*/]$/.test(char);
 }
 
-module.exports = { calc, isNumberOrDecimal, isOperator };
+const add = function(operandOne, operandTwo) {
+    return Number(+operandOne + +operandTwo);
+}
+
+const subtract = function(operandOne, operadTwo) {
+    return Number(+operandOne - +operadTwo);
+}
+
+const multiply = function(operandOne, operadTwo) {
+    return Number((+operandOne * +operadTwo).toFixed(2));
+}
+
+const divide = function(operandOne, operadTwo) {
+    if (+operadTwo === 0) {
+        throw new Error('Cannot divide by 0');
+    }
+    return Number((+operandOne / +operadTwo).toFixed(2));
+}
+
+module.exports = { calc, isNumberOrDecimal, isOperator,
+                    add, subtract, multiply, divide };
