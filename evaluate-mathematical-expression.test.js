@@ -43,3 +43,13 @@ describe('Is Operator Tests', () => {
         expect(isOperator('4')).toBe(false);
     });
 });
+
+describe('Evaluate Bracket Expression Tests', () => {
+    it('should evaluate a single bracket expression', () => {
+        expect(evaluateBracketExpressions('(2*3)')).toEqual('6'); 
+    });
+
+    it('should evaluate a multiple bracket expression', () => {
+        expect(evaluateBracketExpressions('2+(3*(2+1))')).toEqual('2+9');
+    });
+});

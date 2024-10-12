@@ -29,9 +29,9 @@ const calc = function(expression) {
 const evaluateBracketExpressions = function(expression) {
     while (expression.includes('(')) {
         let start = expression.lastIndexOf('(');
-        let end = expression.indexOf(')');
-        let bracketExpression = expression.substring(start + 1, end);
-        let result = new Function('return ' +bracketExpression);
+        let end = expression.indexOf(')', start);
+        let bracketExpression = expression.slice(start + 1, end);
+        let result = new Function('return ' +bracketExpression)();
         expression = expression.slice(0, start) + result + expression.slice(end + 1);
     }
 
