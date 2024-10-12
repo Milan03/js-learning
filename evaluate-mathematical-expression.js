@@ -4,27 +4,12 @@ const calc = function(expression) {
     let operandStack = [];
     let constructedNum = '';
     
-    let inBracketSeq = false;
+    // do while loop check for brackets
+    // evaluate inner bracket expression with
+    // let result = new Function('return ' + innerExpression);
+    
     for (let i = 0; i < expression.length; ++i) {
         let char = expression[i];
-        if (inBracketSeq || char === '(') {
-            let startingIdx = i;
-            inBracketSeq = true;
-            if (isNumberOrDecimal(char)) {
-                constructedNum += char;
-                let next = expression[i + 1];
-                if (!isNumberOrDecimal(next)) {
-                    operandStack.push(+constructedNum);
-                    constructedNum = '';
-                }
-            } else if (isOperator(char)) {
-                operatorStack.push(char);
-            } else if (char === ')') {
-                let operandOne = operandStack.pop();
-                let operandTwo = operandStack.pop();
-                let operator = operatorStack.pop();
-            }
-        }
 
         // maybe do a second loop after bracket evaluations
         if (isNumberOrDecimal(char)) {
