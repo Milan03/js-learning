@@ -4,26 +4,24 @@ const calc = function(expression) {
     let operandStack = [];
     let constructedNum = '';
     
-    // do while loop check for brackets
-    // evaluate inner bracket expression with
-    // let result = new Function('return ' + innerExpression);
     expression = evaluateBracketExpressions(expression);
         
-    // for (let i = 0; i < expression.length; ++i) {
-    //     let char = expression[i];
+    for (let i = 0; i < expression.length; ++i) {
+        let char = expression[i];
+        if (isOperand(char)) {
+            constructedNum += char;
+            let next = expression[i + 1];
+            if (!isOperand(next)) {
+                operandStack.push(+constructedNum);
+                constructedNum = '';
+            }
+        } else if (isOperator(char)) {
+            operatorStack.push(char);
+        }
+    }
 
-    //     // maybe do a second loop after bracket evaluations
-    //     if (isNumberOrDecimal(char)) {
-    //         constructedNum += char;
-    //         let next = expression[i + 1];
-    //         if (!isNumberOrDecimal(next)) {
-    //             operandStack.push(+constructedNum);
-    //             constructedNum = '';
-    //         }
-    //     } else if (isOperator(char)) {
-    //         operatorStack.push(char);
-    //     }
-    // }
+    console.log(`operandStack: ${operandStack}`);
+    console.log(`operatorStack: ${operatorStack}`);
 }
 
 const evaluateBracketExpressions = function(expression) {
@@ -38,13 +36,13 @@ const evaluateBracketExpressions = function(expression) {
     return expression;
 }
 
-const isNumberOrDecimal = function(char) {
-    return /^[0-9.]$/.test(char);
+const isOperand = function(char) {
+    return /^[0-9.-]$/.test(char);
 }
 
 const isOperator = function(char) {
     return /^[+\-*/]$/.test(char);
 }
 
-module.exports = { calc, isNumberOrDecimal, isOperator,
+module.exports = { calc, isOperand, isOperator,
                     evaluateBracketExpressions };

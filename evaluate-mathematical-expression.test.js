@@ -1,22 +1,28 @@
-const { calc, isNumberOrDecimal, isOperator,
+const { calc, isOperand, isOperator,
         evaluateBracketExpressions } = require('./evaluate-mathematical-expression');
 
 describe('Evaluate Mathematical Expression Tests', () => {
-
+    it('should do something', () => {
+        expect(calc('2 /2+3 * 4.75- -6')).toBe(null);
+    });
 });
 
 describe('Is Number or Decimal Tests', () => {
     it('should identify a number', () => {
-        expect(isNumberOrDecimal('1')).toBe(true);
+        expect(isOperand('1')).toBe(true);
     });
     
     it('should identify a decimal', () => {
-        expect(isNumberOrDecimal('.')).toBe(true);
+        expect(isOperand('.')).toBe(true);
+    });
+
+    it('should identify a hyphen for start of negative number', () => {
+        expect(isOperand('-')).toBe(true);
     });
 
     it('should identify when it is not a number or decimal', () => {
-        expect(isNumberOrDecimal('a')).toBe(false);
-        expect(isNumberOrDecimal('*')).toBe(false);
+        expect(isOperand('a')).toBe(false);
+        expect(isOperand('*')).toBe(false);
     });
 });
 
