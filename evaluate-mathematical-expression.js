@@ -11,8 +11,12 @@ const calc = function(expression) {
         if (isOperand(char)) {
             constructedNum += char;
             let next = expression[i + 1];
-            if (!isOperand(next)) {
-                operandStack.push(+constructedNum);
+            if (next === '-') {
+                operandStack.push(constructedNum);
+                constructedNum = '';
+                operatorStack.push(char);
+            } else if (!isOperand(next)) {
+                operandStack.push(constructedNum);
                 constructedNum = '';
             }
         } else if (isOperator(char)) {
@@ -46,3 +50,5 @@ const isOperator = function(char) {
 
 module.exports = { calc, isOperand, isOperator,
                     evaluateBracketExpressions };
+
+calc('2 /2+3 * 4.75- -6');
