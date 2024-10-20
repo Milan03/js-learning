@@ -1,7 +1,7 @@
 const calc = function(expression) {
     expression = expression.replace(/\s/g, '');
     let operatorStack = [];
-    let operandStack = [];
+    let postfixString = '';
     let constructedNum = '';
     
     expression = evaluateBracketExpressions(expression);
@@ -12,11 +12,11 @@ const calc = function(expression) {
             constructedNum += char;
             let next = expression[i + 1];
             if (next === '-') {
-                operandStack.push(constructedNum);
+                postfixString += constructedNum;
                 constructedNum = '';
                 operatorStack.push(char);
             } else if (!isOperand(next)) {
-                operandStack.push(constructedNum);
+                postfixString += constructedNum;
                 constructedNum = '';
             }
         } else if (isOperator(char)) {
@@ -24,7 +24,7 @@ const calc = function(expression) {
         }
     }
 
-    console.log(`operandStack: ${operandStack}`);
+    console.log(`postfixString: ${postfixString}`);
     console.log(`operatorStack: ${operatorStack}`);
 }
 
@@ -40,6 +40,10 @@ const evaluateBracketExpressions = function(expression) {
     return expression;
 }
 
+const operatorPrecedence = function(operator) {
+    return (operator === '+' || operator === '-') ? 1 : 2;
+}
+
 const isOperand = function(char) {
     return /^[0-9.-]$/.test(char);
 }
@@ -49,6 +53,6 @@ const isOperator = function(char) {
 }
 
 module.exports = { calc, isOperand, isOperator,
-                    evaluateBracketExpressions };
+                    evaluateBracketExpressions, operatorPrecedence };
 
 calc('2 /2+3 * 4.75- -6');

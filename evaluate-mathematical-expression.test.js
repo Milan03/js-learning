@@ -1,5 +1,5 @@
 const { calc, isOperand, isOperator,
-        evaluateBracketExpressions } = require('./evaluate-mathematical-expression');
+        evaluateBracketExpressions, operatorPrecedence } = require('./evaluate-mathematical-expression');
 
 describe('Evaluate Mathematical Expression Tests', () => {
     it('should do something', () => {
@@ -57,5 +57,18 @@ describe('Evaluate Bracket Expression Tests', () => {
 
     it('should evaluate a multiple bracket expression', () => {
         expect(evaluateBracketExpressions('2+(3*(2+1))')).toEqual('2+9');
+    });
+});
+
+describe('Operator Precedence Tests', () => {
+    it('should return plus and minus as lower precedence', () => {
+        const addPrecedence = operatorPrecedence('+');
+        const multiplyPrecedence = operatorPrecedence('*');
+        const subPrecedence = operatorPrecedence('-');
+        const dividePrecedence = operatorPrecedence('/');
+        expect(addPrecedence < multiplyPrecedence).toBe(true);
+        expect(subPrecedence < multiplyPrecedence).toBe(true)
+        expect(subPrecedence < dividePrecedence).toBe(true);
+        expect(subPrecedence < dividePrecedence).toBe(true);
     });
 });
