@@ -91,5 +91,8 @@ describe('Evaluate to Postfix Notation Tests', () => {
         expect(evaluateToPostfix('10+2*6')).toEqual('10 2 6 * +');
         expect(evaluateToPostfix('100*2+12')).toEqual('100 2 * 12 +');
         expect(evaluateToPostfix('5*3+8/4-7+2*5')).toEqual('5 3 * 8 4 / + 7 - 2 5 * +');
+        expect(evaluateToPostfix('-5*3+8/4-7+2*5')).toEqual('-5 3 * 8 4 / + 7 - 2 5 * +');
+        expect(evaluateToPostfix('-5*3+8/-4-7+2*5')).toEqual('-5 3 * 8 -4 / + 7 - 2 5 * +');
+        expect(evaluateToPostfix('15*2-8/4+20*3-5')).toEqual('15 2 * 8 4 / - 20 3 * + 5 -');
     });
 });

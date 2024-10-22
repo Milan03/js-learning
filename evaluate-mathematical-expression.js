@@ -22,17 +22,24 @@ const evaluateToPostfix = function(expression) {
     let operatorStack = [];
     let postfixString = '';
     let constructedNum = '';
+    let isMinusOperator = false;
  
     for (let i = 0; i < expression.length; ++i) {
         let char = expression[i];
-        if (isOperand(char)) {
+        if (!isMinusOperator && isOperand(char)) {
             constructedNum += char;
             let next = expression[i + 1];
-            if (!isOperand(next)) {
+            if (next === '-' || !isOperand(next)) {
                 postfixString += constructedNum + ' ';
                 constructedNum = '';
+                if (next === '-') {
+                    isMinusOperator = true;
+                }
             }
         } else if (isOperator(char)) {
+            if (isMinusOperator) {
+                isMinusOperator = false;
+            }
             if (operatorStack.length === 0) {
                 operatorStack.push(char);
             } else {
@@ -75,3 +82,5 @@ const isOperator = function(char) {
 module.exports = { calc, isOperand, isOperator,
                     evaluateBracketExpressions, operatorPrecedence, evaluateNegatives,
                     evaluateToPostfix };
+
+evaluateToPostfix('5*3+8/4-7+2*5');
