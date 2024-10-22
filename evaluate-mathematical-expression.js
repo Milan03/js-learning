@@ -40,6 +40,11 @@ const evaluateBracketExpressions = function(expression) {
     return expression;
 }
 
+const evaluateNegatives = function(expression) {
+    expression = expression.replace('+-', '-');
+    return expression.replace('--', '+');
+}
+
 const operatorPrecedence = function(operator) {
     return (operator === '+' || operator === '-') ? 1 : 2;
 }
@@ -53,6 +58,6 @@ const isOperator = function(char) {
 }
 
 module.exports = { calc, isOperand, isOperator,
-                    evaluateBracketExpressions, operatorPrecedence };
+                    evaluateBracketExpressions, operatorPrecedence, evaluateNegatives };
 
 calc('2 /2+3 * 4.75- -6');

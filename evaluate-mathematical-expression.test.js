@@ -1,5 +1,6 @@
 const { calc, isOperand, isOperator,
-        evaluateBracketExpressions, operatorPrecedence } = require('./evaluate-mathematical-expression');
+        evaluateBracketExpressions, operatorPrecedence, 
+        evaluateNegatives } = require('./evaluate-mathematical-expression');
 
 describe('Evaluate Mathematical Expression Tests', () => {
     it('should do something', () => {
@@ -70,5 +71,15 @@ describe('Operator Precedence Tests', () => {
         expect(subPrecedence < multiplyPrecedence).toBe(true)
         expect(subPrecedence < dividePrecedence).toBe(true);
         expect(subPrecedence < dividePrecedence).toBe(true);
+    });
+});
+
+describe('Evaluate Negatives Tests', () => {
+    it('should transform double negatives into an addition', () => {
+        expect(evaluateNegatives('2/2+3*4.75--6')).toEqual('2/2+3*4.75+6');
+    });
+
+    it('should transform plus minus to minus', () => {
+        expect(evaluateNegatives('2/2+3*4.75+-6')).toEqual('2/2+3*4.75-6');
     });
 });
