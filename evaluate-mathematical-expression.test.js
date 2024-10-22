@@ -1,6 +1,6 @@
 const { calc, isOperand, isOperator,
         evaluateBracketExpressions, operatorPrecedence, 
-        evaluateNegatives } = require('./evaluate-mathematical-expression');
+        evaluateNegatives, evaluateToPostfix } = require('./evaluate-mathematical-expression');
 
 describe('Evaluate Mathematical Expression Tests', () => {
     it('should do something', () => {
@@ -81,5 +81,15 @@ describe('Evaluate Negatives Tests', () => {
 
     it('should transform plus minus to minus', () => {
         expect(evaluateNegatives('2/2+3*4.75+-6')).toEqual('2/2+3*4.75-6');
+    });
+});
+
+describe('Evaluate to Postfix Notation Tests', () => {
+    it('should evaluate the expression to postfix notation', () => {
+        expect(evaluateToPostfix('2/2+3*4.75+6')).toEqual('2 2 / 3 4.75 * + 6 +');
+        expect(evaluateToPostfix('3+5*2')).toEqual('3 5 2 * +');
+        expect(evaluateToPostfix('10+2*6')).toEqual('10 2 6 * +');
+        expect(evaluateToPostfix('100*2+12')).toEqual('100 2 * 12 +');
+        expect(evaluateToPostfix('5*3+8/4-7+2*5')).toEqual('5 3 * 8 4 / + 7 - 2 5 * +');
     });
 });

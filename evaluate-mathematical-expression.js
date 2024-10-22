@@ -1,12 +1,28 @@
 const calc = function(expression) {
     expression = expression.replace(/\s/g, '');
+   
+    expression = evaluateBracketExpressions(expression);
+    expression = evaluateNegatives(expression);
+    expression = evaluateToPostfix(expression);    
+}
+
+const evaluateBracketExpressions = function(expression) {
+    while (expression.includes('(')) {
+        let start = expression.lastIndexOf('(');
+        let end = expression.indexOf(')', start);
+        let bracketExpression = expression.slice(start + 1, end);
+        let result = new Function('return ' +bracketExpression)();
+        expression = expression.slice(0, start) + result + expression.slice(end + 1);
+    }
+
+    return expression;
+}
+
+const evaluateToPostfix = function(expression) {
     let operatorStack = [];
     let postfixString = '';
     let constructedNum = '';
-    
-    expression = evaluateBracketExpressions(expression);
-    expression = evaluateNegatives(expression);
-        
+ 
     for (let i = 0; i < expression.length; ++i) {
         let char = expression[i];
         if (isOperand(char)) {
@@ -36,22 +52,7 @@ const calc = function(expression) {
     while (operatorStack.length > 0) {
         postfixString += operatorStack.pop() + ' ';
     }
-    postfixString = postfixString.trimEnd();
-
-    console.log(`postfixString: ${postfixString}`);
-    console.log(`operatorStack: ${operatorStack}`);
-}
-
-const evaluateBracketExpressions = function(expression) {
-    while (expression.includes('(')) {
-        let start = expression.lastIndexOf('(');
-        let end = expression.indexOf(')', start);
-        let bracketExpression = expression.slice(start + 1, end);
-        let result = new Function('return ' +bracketExpression)();
-        expression = expression.slice(0, start) + result + expression.slice(end + 1);
-    }
-
-    return expression;
+    return postfixString.trimEnd();
 }
 
 const evaluateNegatives = function(expression) {
@@ -72,6 +73,5 @@ const isOperator = function(char) {
 }
 
 module.exports = { calc, isOperand, isOperator,
-                    evaluateBracketExpressions, operatorPrecedence, evaluateNegatives };
-
-calc('2 - -6');
+                    evaluateBracketExpressions, operatorPrecedence, evaluateNegatives,
+                    evaluateToPostfix };
