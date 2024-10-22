@@ -5,24 +5,38 @@ const calc = function(expression) {
     let constructedNum = '';
     
     expression = evaluateBracketExpressions(expression);
+    expression = evaluateNegatives(expression);
         
     for (let i = 0; i < expression.length; ++i) {
         let char = expression[i];
         if (isOperand(char)) {
             constructedNum += char;
             let next = expression[i + 1];
-            if (next === '-') {
-                postfixString += constructedNum;
-                constructedNum = '';
-                operatorStack.push(char);
-            } else if (!isOperand(next)) {
-                postfixString += constructedNum;
+            if (!isOperand(next)) {
+                postfixString += constructedNum + ' ';
                 constructedNum = '';
             }
         } else if (isOperator(char)) {
-            operatorStack.push(char);
+            if (operatorStack.length === 0) {
+                operatorStack.push(char);
+            } else {
+                while (operatorStack.length > 0) {
+                    let peekValue = operatorStack[operatorStack.length - 1];
+                    if (operatorPrecedence(peekValue) >= operatorPrecedence(char)) {
+                        postfixString += operatorStack.pop() + ' ';
+                    } else {
+                        break;
+                    }
+                }
+                operatorStack.push(char);
+            }
         }
     }
+
+    while (operatorStack.length > 0) {
+        postfixString += operatorStack.pop() + ' ';
+    }
+    postfixString = postfixString.trimEnd();
 
     console.log(`postfixString: ${postfixString}`);
     console.log(`operatorStack: ${operatorStack}`);
@@ -60,4 +74,4 @@ const isOperator = function(char) {
 module.exports = { calc, isOperand, isOperator,
                     evaluateBracketExpressions, operatorPrecedence, evaluateNegatives };
 
-calc('2 /2+3 * 4.75- -6');
+calc('2 - -6');
