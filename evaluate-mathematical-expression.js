@@ -93,8 +93,15 @@ const evaluatePostfixExpression = function(expression) {
 }
 
 const evaluateNegatives = function(expression) {
-    expression = expression.replace('+-', '-');
-    return expression.replace('--', '+');
+    if (expression.includes('+-')) {
+        return expression.replace('+-', '-');
+    } else if (expression.includes('--')) {
+        let pos = expression.indexOf('--');
+        let prevItem = expression[pos - 1];
+        return (isOperator(prevItem)) ? expression.replace('--', '') : 
+            expression.replace('--', '+');
+    }
+    return expression; // if neither are hit
 }
 
 const operatorPrecedence = function(operator) {
@@ -158,4 +165,4 @@ module.exports = { calc, isOperand, isOperator,
                     evaluateToPostfix, evaluatePostfixExpression, add,
                     subtract, multiply, divide, getPrecision };
 
-evaluatePostfixExpression('9 5 1 - / 8 2 * +');
+calc('1+1');

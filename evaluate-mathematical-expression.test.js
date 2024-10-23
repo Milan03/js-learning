@@ -21,6 +21,7 @@ describe('Evaluate Mathematical Expression Tests', () => {
         expect(calc('2 /2+3 * 4.75- -6')).toEqual(21.25);
         expect(calc('12* 123')).toEqual(1476);
         expect(calc('2 / (2 + 3) * 4.33 - -6')).toEqual(7.732);
+        expect(calc('12* 123/-(-5 + 2)')).toEqual(492);
     });
 });
 
@@ -93,6 +94,10 @@ describe('Operator Precedence Tests', () => {
 describe('Evaluate Negatives Tests', () => {
     it('should transform double negatives into an addition', () => {
         expect(evaluateNegatives('2/2+3*4.75--6')).toEqual('2/2+3*4.75+6');
+    });
+
+    it('should remove double negatives if prev item is operator', () => {
+        expect(evaluateNegatives('12*123/--3')).toEqual('12*123/3');
     });
 
     it('should transform plus minus to minus', () => {
