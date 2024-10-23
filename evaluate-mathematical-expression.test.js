@@ -1,6 +1,7 @@
 const { calc, isOperand, isOperator,
         evaluateBracketExpressions, operatorPrecedence, 
-        evaluateNegatives, evaluateToPostfix, evaluatePostfixExpression } 
+        evaluateNegatives, evaluateToPostfix, evaluatePostfixExpression,
+        add, subtract, multiply, divide } 
     = require('./evaluate-mathematical-expression');
 
 describe('Evaluate Mathematical Expression Tests', () => {
@@ -119,5 +120,32 @@ describe('Evaluate Postfix Expression Tests', () => {
         expect(evaluatePostfixExpression('25 5 4 * - 8 2 * + 10 2 / -')).toEqual(16);
         expect(evaluatePostfixExpression('9 5 1 - / 8 2 * +')).toEqual(18.25);
         expect(evaluatePostfixExpression('50 5 / 2 * 100 4 / + 20 3 * -')).toEqual(-15);
+    });
+});
+
+describe('Operator Tests', () => {
+    it('should add operands and return the result', () => {
+        expect(add(5, 2)).toEqual(7);
+        expect(add(5.5, 2.2)).toEqual(7.7);
+        expect(add(-5, -4)).toEqual(-9);
+    });
+    
+    it('should subtract operands and return the result', () => {
+        expect(subtract(5, 2)).toEqual(3);
+        expect(subtract(5.5, 2.2)).toEqual(3.3);
+        expect(subtract(-3, 2)).toEqual(-5);
+    });
+    
+    it('should multiply operands and return the result', () => {
+        expect(multiply(5, 2)).toEqual(10);
+        expect(multiply(2.2, 5.5)).toEqual(12.1);
+        expect(multiply(-3, 2.2)).toEqual(-6.6);
+    });
+
+    it('should divide operands and return the result', () => {
+        expect(() => { divide(5, 0) }).toThrow('Cannot divide by 0');
+        expect(divide(4, 2)).toEqual(2);
+        expect(divide(4.2, 2.2)).toEqual(1.91);
+        expect(divide(-4, 2.2)).toEqual(-1.82);
     });
 });

@@ -74,8 +74,16 @@ const evaluatePostfixExpression = function(expression) {
         } else {
             let rightOperand = operandStack.pop();
             let leftOperand = operandStack.pop();
-            let currentExpression = `${leftOperand}${item}${rightOperand}`;
-            let result = new Function('return ' +currentExpression)();
+            let result;
+            if (item === '+') {
+                result = add(+leftOperand, +rightOperand);
+            } else if (item === '-') {
+                result = subtract(+leftOperand, +rightOperand);
+            } else if (item === '*') {
+                result = multiply(+leftOperand, +rightOperand);
+            } else if (item === '/') {
+                result = divide(+leftOperand, +rightOperand);
+            }
             operandStack.push(result);
         }
     }
@@ -99,6 +107,29 @@ const isOperator = function(char) {
     return /^[+\-*/]$/.test(char);
 }
 
+const add = function(operandOne, operandTwo) {
+    return Number(+operandOne + +operandTwo);
+}
+
+const subtract = function(operandOne, operadTwo) {
+    return Number(+operandOne - +operadTwo);
+}
+
+const multiply = function(operandOne, operadTwo) {
+    return Number((+operandOne * +operadTwo).toFixed(2));
+}
+
+const divide = function(operandOne, operadTwo) {
+    if (+operadTwo === 0) {
+        throw new Error('Cannot divide by 0');
+    }
+    // TODO: get percision by getting # of places after decimal + 1
+    return Number((+operandOne / +operadTwo).toFixed(2));
+}
+
 module.exports = { calc, isOperand, isOperator,
                     evaluateBracketExpressions, operatorPrecedence, evaluateNegatives,
-                    evaluateToPostfix, evaluatePostfixExpression };
+                    evaluateToPostfix, evaluatePostfixExpression, add,
+                    subtract, multiply, divide };
+
+evaluateBracketExpressions('2+(3*(2+1))')
