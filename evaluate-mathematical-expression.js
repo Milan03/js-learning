@@ -108,28 +108,52 @@ const isOperator = function(char) {
 }
 
 const add = function(operandOne, operandTwo) {
-    return Number(+operandOne + +operandTwo);
+    let precision1 = getPrecision(+operandOne);
+    let precision2 = getPrecision(+operandTwo);
+    let precision = (precision1 >= precision2) ? precision1 : precision2;
+    return Number((+operandOne + +operandTwo).toFixed(precision));
 }
 
-const subtract = function(operandOne, operadTwo) {
-    return Number(+operandOne - +operadTwo);
+const subtract = function(operandOne, operandTwo) {
+    let precision1 = getPrecision(+operandOne);
+    let precision2 = getPrecision(+operandTwo);
+    let precision = (precision1 >= precision2) ? precision1 : precision2;
+    return Number((+operandOne - +operandTwo).toFixed(precision));
 }
 
-const multiply = function(operandOne, operadTwo) {
-    return Number((+operandOne * +operadTwo).toFixed(2));
+const multiply = function(operandOne, operandTwo) {
+    let precision1 = getPrecision(+operandOne);
+    let precision2 = getPrecision(+operandTwo);
+    let precision = precision1 + precision2;
+    return Number((+operandOne * +operandTwo).toFixed(precision));
 }
 
-const divide = function(operandOne, operadTwo) {
-    if (+operadTwo === 0) {
+const divide = function(operandOne, operandTwo) {
+    if (+operandTwo === 0) {
         throw new Error('Cannot divide by 0');
     }
-    // TODO: get percision by getting # of places after decimal + 1
-    return Number((+operandOne / +operadTwo).toFixed(2));
+    let precision1 = getPrecision(+operandOne);
+    let precision2 = getPrecision(+operandTwo);
+    let precision = (precision1 >= precision2) ? precision1 : precision2;
+    return (precision != 0) ? Number((+operandOne / +operandTwo).toFixed(precision)) : 
+        Number(+operandOne / +operandTwo);
+}
+
+const getPrecision = function(number) {
+    if (!isFinite(number)) {
+        return 0;
+    }
+    var e = 1, p = 0;
+    while (Math.round(number * e) / e !== number) {
+        e *= 10;
+        ++p;
+    }
+    return p;
 }
 
 module.exports = { calc, isOperand, isOperator,
                     evaluateBracketExpressions, operatorPrecedence, evaluateNegatives,
                     evaluateToPostfix, evaluatePostfixExpression, add,
-                    subtract, multiply, divide };
+                    subtract, multiply, divide, getPrecision };
 
-evaluateBracketExpressions('2+(3*(2+1))')
+evaluatePostfixExpression('9 5 1 - / 8 2 * +');

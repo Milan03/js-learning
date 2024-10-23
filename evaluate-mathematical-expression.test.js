@@ -1,7 +1,7 @@
 const { calc, isOperand, isOperator,
         evaluateBracketExpressions, operatorPrecedence, 
         evaluateNegatives, evaluateToPostfix, evaluatePostfixExpression,
-        add, subtract, multiply, divide } 
+        add, subtract, multiply, divide, getPrecision } 
     = require('./evaluate-mathematical-expression');
 
 describe('Evaluate Mathematical Expression Tests', () => {
@@ -128,24 +128,36 @@ describe('Operator Tests', () => {
         expect(add(5, 2)).toEqual(7);
         expect(add(5.5, 2.2)).toEqual(7.7);
         expect(add(-5, -4)).toEqual(-9);
+        expect(add(5, 2.22)).toEqual(7.22);
     });
     
     it('should subtract operands and return the result', () => {
         expect(subtract(5, 2)).toEqual(3);
         expect(subtract(5.5, 2.2)).toEqual(3.3);
         expect(subtract(-3, 2)).toEqual(-5);
+        expect(subtract(10, 2.222)).toEqual(7.778);
     });
     
     it('should multiply operands and return the result', () => {
         expect(multiply(5, 2)).toEqual(10);
         expect(multiply(2.2, 5.5)).toEqual(12.1);
         expect(multiply(-3, 2.2)).toEqual(-6.6);
+        expect(multiply(3.14, 2.1)).toEqual(6.594);
     });
 
     it('should divide operands and return the result', () => {
         expect(() => { divide(5, 0) }).toThrow('Cannot divide by 0');
         expect(divide(4, 2)).toEqual(2);
-        expect(divide(4.2, 2.2)).toEqual(1.91);
-        expect(divide(-4, 2.2)).toEqual(-1.82);
+        expect(divide(4.2, 2.2)).toEqual(1.9);
+        expect(divide(-4, 2.2)).toEqual(-1.8);
+        expect(divide(18.2, 2.333)).toEqual(7.801);
+    });
+});
+
+describe('Get Precision Tests', () => {
+    it('should return the amount of places after the decimal', () => {
+        expect(getPrecision(13.25)).toEqual(2);
+        expect(getPrecision(123)).toEqual(0);
+        expect(getPrecision(1.123456789)).toEqual(9);
     });
 });
