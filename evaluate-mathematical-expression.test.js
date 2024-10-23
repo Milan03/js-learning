@@ -1,10 +1,25 @@
 const { calc, isOperand, isOperator,
         evaluateBracketExpressions, operatorPrecedence, 
-        evaluateNegatives, evaluateToPostfix } = require('./evaluate-mathematical-expression');
+        evaluateNegatives, evaluateToPostfix, evaluatePostfixExpression } 
+    = require('./evaluate-mathematical-expression');
 
 describe('Evaluate Mathematical Expression Tests', () => {
-    it('should do something', () => {
-        expect(calc('2 /2+3 * 4.75- -6')).toBe(null);
+    it('should evaluate basic arithmetic', () => {
+        expect(calc('1 + 1')).toEqual(2);
+        expect(calc('1 - 1')).toEqual(0);
+        expect(calc('1* 1')).toEqual(1);
+        expect(calc('1 /1')).toEqual(1);
+    });
+
+    it('should handle single operands', () => {
+        expect(calc('-123')).toEqual(-123);
+        expect(calc('123')).toEqual(123);
+    });
+
+    it('should evaluate more complex expressions', () => {
+        expect(calc('2 /2+3 * 4.75- -6')).toEqual(21.25);
+        expect(calc('12* 123')).toEqual(1476);
+        expect(calc('2 / (2 + 3) * 4.33 - -6')).toEqual(7.732);
     });
 });
 
@@ -94,5 +109,15 @@ describe('Evaluate to Postfix Notation Tests', () => {
         expect(evaluateToPostfix('-5*3+8/4-7+2*5')).toEqual('-5 3 * 8 4 / + 7 - 2 5 * +');
         expect(evaluateToPostfix('-5*3+8/-4-7+2*5')).toEqual('-5 3 * 8 -4 / + 7 - 2 5 * +');
         expect(evaluateToPostfix('15*2-8/4+20*3-5')).toEqual('15 2 * 8 4 / - 20 3 * + 5 -');
+    });
+});
+
+describe('Evaluate Postfix Expression Tests', () => {
+    it('should evaluate the postfix expression into a single result', () => {
+        expect(evaluatePostfixExpression('2 2 / 3 4.75 * + 6 +')).toEqual(21.25);
+        expect(evaluatePostfixExpression('7 3 4 * + 2 1 / - 6 5 * +')).toEqual(47);
+        expect(evaluatePostfixExpression('25 5 4 * - 8 2 * + 10 2 / -')).toEqual(16);
+        expect(evaluatePostfixExpression('9 5 1 - / 8 2 * +')).toEqual(18.25);
+        expect(evaluatePostfixExpression('50 5 / 2 * 100 4 / + 20 3 * -')).toEqual(-15);
     });
 });

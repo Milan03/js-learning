@@ -4,6 +4,8 @@ const calc = function(expression) {
     expression = evaluateBracketExpressions(expression);
     expression = evaluateNegatives(expression);
     expression = evaluateToPostfix(expression);    
+
+    return evaluatePostfixExpression(expression);
 }
 
 const evaluateBracketExpressions = function(expression) {
@@ -62,6 +64,24 @@ const evaluateToPostfix = function(expression) {
     return postfixString.trimEnd();
 }
 
+const evaluatePostfixExpression = function(expression) {
+    let operandStack = [];
+    expression = expression.split(' ');
+    for (let i = 0; i < expression.length; ++i) {
+        let item = expression[i];
+        if (!isOperator(item)) {
+            operandStack.push(item);
+        } else {
+            let rightOperand = operandStack.pop();
+            let leftOperand = operandStack.pop();
+            let currentExpression = `${leftOperand}${item}${rightOperand}`;
+            let result = new Function('return ' +currentExpression)();
+            operandStack.push(result);
+        }
+    }
+    return +operandStack[0];
+}
+
 const evaluateNegatives = function(expression) {
     expression = expression.replace('+-', '-');
     return expression.replace('--', '+');
@@ -81,6 +101,4 @@ const isOperator = function(char) {
 
 module.exports = { calc, isOperand, isOperator,
                     evaluateBracketExpressions, operatorPrecedence, evaluateNegatives,
-                    evaluateToPostfix };
-
-evaluateToPostfix('5*3+8/4-7+2*5');
+                    evaluateToPostfix, evaluatePostfixExpression };
