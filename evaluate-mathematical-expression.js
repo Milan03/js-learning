@@ -13,7 +13,9 @@ const evaluateBracketExpressions = function(expression) {
         let start = expression.lastIndexOf('(');
         let end = expression.indexOf(')', start);
         let bracketExpression = expression.slice(start + 1, end);
-        let result = new Function('return ' +bracketExpression)();
+        let postfix = evaluateToPostfix(bracketExpression);
+        let result = evaluatePostfixExpression(postfix);
+
         expression = expression.slice(0, start) + result + expression.slice(end + 1);
     }
 
