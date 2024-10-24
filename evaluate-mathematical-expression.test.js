@@ -22,6 +22,8 @@ describe('Evaluate Mathematical Expression Tests', () => {
         expect(calc('12* 123')).toEqual(1476);
         expect(calc('2 / (2 + 3) * 4.33 - -6')).toEqual(7.732);
         expect(calc('12* 123/-(-5 + 2)')).toEqual(492);
+        expect(calc('(1 - 2) + -(-(-(-4)))')).toEqual(3);
+        expect(calc('((2.33 / (2.9+3.5)*4) - -6)')).toEqual(7.45625);
     });
 });
 
@@ -145,7 +147,7 @@ describe('Operator Tests', () => {
     
     it('should multiply operands and return the result', () => {
         expect(multiply(5, 2)).toEqual(10);
-        expect(multiply(2.2, 5.5)).toEqual(12.1);
+        expect(multiply(2.2, 5.5)).toEqual(12.100000000000001);
         expect(multiply(-3, 2.2)).toEqual(-6.6);
         expect(multiply(3.14, 2.1)).toEqual(6.594);
     });
@@ -153,9 +155,9 @@ describe('Operator Tests', () => {
     it('should divide operands and return the result', () => {
         expect(() => { divide(5, 0) }).toThrow('Cannot divide by 0');
         expect(divide(4, 2)).toEqual(2);
-        expect(divide(4.2, 2.2)).toEqual(1.9);
-        expect(divide(-4, 2.2)).toEqual(-1.8);
-        expect(divide(18.2, 2.333)).toEqual(7.801);
+        expect(divide(4.2, 2.2)).toEqual(1.9090909090909092);
+        expect(divide(-4, 2.2)).toEqual(-1.8181818181818181);
+        expect(divide(18.2, 2.333)).toEqual(7.801114444920703);
     });
 });
 

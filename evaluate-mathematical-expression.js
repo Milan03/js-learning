@@ -13,6 +13,9 @@ const evaluateBracketExpressions = function(expression) {
         let start = expression.lastIndexOf('(');
         let end = expression.indexOf(')', start);
         let bracketExpression = expression.slice(start + 1, end);
+        if (bracketExpression.includes('--')) {
+            bracketExpression = evaluateNegatives(bracketExpression);
+        }
         let postfix = evaluateToPostfix(bracketExpression);
         let result = evaluatePostfixExpression(postfix);
 
@@ -93,15 +96,16 @@ const evaluatePostfixExpression = function(expression) {
 }
 
 const evaluateNegatives = function(expression) {
-    if (expression.includes('+-')) {
-        return expression.replace('+-', '-');
-    } else if (expression.includes('--')) {
-        let pos = expression.indexOf('--');
-        let prevItem = expression[pos - 1];
-        return (isOperator(prevItem)) ? expression.replace('--', '') : 
-            expression.replace('--', '+');
-    }
-    return expression; // if neither are hit
+    // Replace all instances of "+-" with "-"
+    expression = expression.replace(/\+-/g, '-');
+    
+    // Replace all instances of "--"
+    expression = expression.replace(/--/g, (match, offset) => {
+        let prevItem = expression[offset - 1];
+        return (isOperator(prevItem) || prevItem === undefined) ? '' : '+';
+    });
+
+    return expression;
 }
 
 const operatorPrecedence = function(operator) {
@@ -133,19 +137,23 @@ const subtract = function(operandOne, operandTwo) {
 const multiply = function(operandOne, operandTwo) {
     let precision1 = getPrecision(+operandOne);
     let precision2 = getPrecision(+operandTwo);
-    let precision = precision1 + precision2;
-    return Number((+operandOne * +operandTwo).toFixed(precision));
+    let factor = Math.pow(10, precision1 + precision2);
+
+    // Convert to integer, multiply, then convert back
+    return (+operandOne * factor) * (+operandTwo * factor) / (factor * factor);
 }
 
 const divide = function(operandOne, operandTwo) {
     if (+operandTwo === 0) {
         throw new Error('Cannot divide by 0');
     }
+
     let precision1 = getPrecision(+operandOne);
     let precision2 = getPrecision(+operandTwo);
-    let precision = (precision1 >= precision2) ? precision1 : precision2;
-    return (precision != 0) ? Number((+operandOne / +operandTwo).toFixed(precision)) : 
-        Number(+operandOne / +operandTwo);
+    let factor = Math.pow(10, Math.max(precision1, precision2));
+
+    // Adjust precision, divide, and return result
+    return (+operandOne * factor) / (+operandTwo * factor);
 }
 
 const getPrecision = function(number) {
@@ -165,4 +173,4 @@ module.exports = { calc, isOperand, isOperator,
                     evaluateToPostfix, evaluatePostfixExpression, add,
                     subtract, multiply, divide, getPrecision };
 
-calc('1+1');
+calc('((2.33 / (2.9+3.5)*4) - -6)');
