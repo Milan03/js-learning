@@ -28,7 +28,19 @@ function SQLEngine(database) {
                 }
             }
         }
-        let test = 0;
+        
+        // Initial table will always be first element after FROM keyword
+        let initTable = queryParts[queryParts.indexOf('FROM') + 1];
+        
+        let objsArrResult = new Array();
+        if (!database.hasOwnProperty(initTable)) {
+            throw new Error('Table does not exist in database.');
+        }
+        let initTableColumns = columnMap.get(initTable);
+
+        if (queryParts.includes('WHERE')) {
+            let test = 0;
+        }
     }
 
 }
@@ -65,4 +77,4 @@ module.exports = SQLEngine;
 
 // how do i call execute method?
 const engine = new SQLEngine(movieDatabase);
-engine.execute('SELECT movie.name, actor.name, actor.id, movie.id FROM movie'); // This will log the query parts to the console
+engine.execute('SELECT movie.name, movie.id FROM movie WHERE movie.directorID = 1'); // This will log the query parts to the console
